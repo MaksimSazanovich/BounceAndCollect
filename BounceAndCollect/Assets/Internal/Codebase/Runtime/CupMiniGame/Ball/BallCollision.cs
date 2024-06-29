@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Internal.Codebase.Runtime.CupMiniGame.BoosterLines;
 using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
 using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.PusherUp;
+using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Subtractor;
 using NaughtyAttributes;
+using NTC.Pool;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.Ball
@@ -25,14 +27,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
         {
             LockBoosterLineIDs = lockBoosterLineIDs;
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.TryGetComponent(out BoosterLine boosterLine) && transform.position.y >= other.transform.position.y
-                                                                   && !LockBoosterLineIDs.Contains(boosterLine.ID))
-            {
-            }
-        }
+        
 
         public void LockMultiplierX(MultiplierX multiplierX)
         {
@@ -68,6 +63,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
                     LockBoosterLineIDs.Clear();
                     LockBoosterLineIDs.Add(pusherUp.ID);
                 }
+                    break;
+                case Subtractor:
+                    NightPool.Despawn(gameObject);
                     break;
             }
         }

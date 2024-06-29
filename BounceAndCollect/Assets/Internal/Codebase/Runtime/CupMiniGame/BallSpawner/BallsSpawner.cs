@@ -21,7 +21,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         public static Action<int, HashSet<int>, Vector3> OnCollidedBall;
 
         private IBallsFactory ballsFactory;
-        private int ballsOnStartMiniGame = 1;
+        private int ballsOnStartMiniGame = 3;
         private Cup.Cup cup;
         private CupDropController cupDropController;
         private float timeBetweenSpawnFirstBalls = 0.1f;
