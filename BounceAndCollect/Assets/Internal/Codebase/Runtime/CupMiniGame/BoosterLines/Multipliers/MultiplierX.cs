@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.Constants;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
@@ -12,7 +13,7 @@ using Random = UnityEngine.Random;
 namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
 {
     [DisallowMultipleComponent]
-    public class MultiplierX : BoosterLine
+    public class MultiplierX : BoosterLine, IEnumerable
     {
         private IResourceProvider resourceProvider;
         [field: SerializeField] public int Value { get; private set; }
@@ -78,6 +79,11 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
                     spriteRenderer.color = Colors.x5;
                     break;
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }
