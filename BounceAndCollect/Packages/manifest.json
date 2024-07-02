@@ -2,6 +2,7 @@
   "dependencies": {
     "com.nighttraincode.nightpool": "https://github.com/MeeXaSiK/NightPool.git",
     "com.rimurudev.sceneswitcher": "https://github.com/RimuruDev/SceneSwitcher.git",
+    "com.rimurudev.unity-skip-splashscreen": "https://github.com/RimuruDev/UnitySkipSplashScreen.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.21",
