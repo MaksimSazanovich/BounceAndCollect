@@ -10,6 +10,7 @@ using ModestTree;
 using NTC.Pool;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
 {
@@ -19,6 +20,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         [field: SerializeField] public List<Ball.Ball> Balls { get; private set; }
         [field: SerializeField] public int MaxBallsCount { get; private set; }
         public static Action<int, HashSet<int>, Vector3> OnCollidedBall;
+        [SerializeField] private Sprite[] sprites;
+        [SerializeField] private Sprite defaultSprite;
 
         private IBallsFactory ballsFactory;
         private int ballsOnStartMiniGame = 3;
@@ -65,7 +68,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < MaxBallsCount; i++)
             {
-                Balls.Add(ballsFactory.CreateBall(transform, Vector3.zero));
+                Balls.Add(ballsFactory.CreateBall(transform, Vector3.zero, defaultSprite));
             }
         }
         
@@ -73,7 +76,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < ballsOnStartMiniGame; i++)
             {
-                Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position));
+                Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position, sprites[Random.Range(0, sprites.Length)]));
                 yield return new WaitForSeconds(timeBetweenSpawnFirstBalls);
             }
         }
@@ -82,7 +85,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < count; i++)
             {
-                Balls.Add(ballsFactory.CreateBall(transform, PositionOffsetCalculator.CalculateBothAxis(position, spawnOffset), lockBoosterLineIDs));
+                Balls.Add(ballsFactory.CreateBall(transform, PositionOffsetCalculator.CalculateBothAxis(position, spawnOffset), lockBoosterLineIDs, sprites[Random.Range(0, sprites.Length)]));
             }
         }
         

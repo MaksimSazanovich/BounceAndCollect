@@ -3,6 +3,7 @@ using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Runtime.UI.MainUI.LoadingCurtain;
 using UnityEngine;
+using YG;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.GameBootstrapper
@@ -35,7 +36,7 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
         private void HideCurtain()
         {
             curtainService.HideCurtain(curtainConfig.HideDelay);
-            loaderService.LoadScene(SceneName.MenuScene/*TODO if WebJL InitGRA*/);
+            loaderService.LoadScene(SceneName.GameScene, () => YandexGame.InitGRA());
         }
     }
 }

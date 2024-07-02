@@ -2,7 +2,6 @@ using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
 using NaughtyAttributes;
 using UnityEngine;
 
-
 namespace Internal.Codebase.Runtime.CupMiniGame.Levels
 {
     [DisallowMultipleComponent]

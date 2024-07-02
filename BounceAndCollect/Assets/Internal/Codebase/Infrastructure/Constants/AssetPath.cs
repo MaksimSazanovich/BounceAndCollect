@@ -4,6 +4,6 @@ namespace Internal.Codebase.Infrastructure.Constants
     {
         public const string CurtainConfig = "StaticData/Curtain/CurtainConfig";
         public const string BallConfig = "StaticData/Ball/BallConfig";
-        public const string MultipliersConfig = "StaticData/Muliplaiers/Multipliers";
+        public const string MultipliersConfig = "StaticData/BoosterLines/Multipliers";
     }
 }

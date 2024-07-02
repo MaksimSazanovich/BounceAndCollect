@@ -4918,6 +4918,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Balls>k__BackingField: []
   <MaxBallsCount>k__BackingField: 300
+  sprites:
+  - {fileID: 21300000, guid: 985d8d130836e0344b16d91f5668a92a, type: 3}
+  - {fileID: 21300000, guid: d38527c81883a894abe2f2034260729a, type: 3}
+  - {fileID: 21300000, guid: 04f51ac6edb143645b0d4b95c888b339, type: 3}
+  - {fileID: 21300000, guid: b891a436714356c4f8b261b84d35317a, type: 3}
+  defaultSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
 --- !u!114 &1771008240
 MonoBehaviour:
   m_ObjectHideFlags: 0

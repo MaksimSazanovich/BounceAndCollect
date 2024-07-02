@@ -6,7 +6,7 @@ namespace Internal.Codebase.Infrastructure.Factories.BallsFactory
 {
     public interface IBallsFactory
     {
-        public Ball CreateBall(Transform at, Vector3 postion, HashSet<int> lockBoosterLineIDs);
-        public Ball CreateBall(Transform at, Vector3 postion);
+        public Ball CreateBall(Transform at, Vector3 postion, HashSet<int> lockBoosterLineIDs, Sprite sprite);
+        public Ball CreateBall(Transform at, Vector3 postion, Sprite sprite);
     }
 }
