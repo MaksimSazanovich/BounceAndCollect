@@ -4,14 +4,15 @@ using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
+using ResourceProvider = Internal.Codebase.Infrastructure.Services.ResourceProvider.ResourceProvider;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
 {
     [DisallowMultipleComponent]
     public sealed class RandomMultiplierX : BoosterLine
     {
-        private IMultipliersFactory multipliersFactory;
-        private IResourceProvider resourceProvider;
+        private MultipliersFactory multipliersFactory;
+        private ResourceProvider resourceProvider;
         private SpriteRenderer spriteRenderer;
 
         private void Awake()
@@ -20,7 +21,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
         }
 
         [Inject]
-        private void Constructor(IMultipliersFactory multipliersFactory, IResourceProvider resourceProvider)
+        private void Constructor(MultipliersFactory multipliersFactory, ResourceProvider resourceProvider)
         {
             this.resourceProvider = resourceProvider;
             this.multipliersFactory = multipliersFactory;

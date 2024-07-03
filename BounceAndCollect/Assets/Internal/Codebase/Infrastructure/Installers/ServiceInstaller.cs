@@ -15,10 +15,10 @@ namespace Internal.Codebase.Infrastructure.Installers
         public override void InstallBindings()
         {
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle().NonLazy();
-            Container.Bind<ISceneLoaderService>().To<SceneLoaderService>().AsSingle().NonLazy();
-            Container.Bind<IResourceProvider>().To<ResourceProvider>().AsSingle().NonLazy();
+            Container.Bind<SceneLoaderService>().AsSingle().NonLazy();
+            Container.Bind<ResourceProvider>().AsSingle().NonLazy();
             
-            Container.Bind<ICurtainService>().To<CurtainService>().AsSingle().NonLazy();
+            Container.Bind<CurtainService>().AsSingle().NonLazy();
         }
     }
 }

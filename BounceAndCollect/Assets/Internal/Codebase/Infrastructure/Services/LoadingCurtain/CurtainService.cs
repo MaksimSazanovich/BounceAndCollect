@@ -5,13 +5,13 @@ using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.LoadingCurtain
 {
-    class CurtainService : ICurtainService
+    class CurtainService
     {
-        private IMainUIFactory mainUIFactory;
+        private MainUIFactory mainUIFactory;
         private Curtain curtain;
 
         [Inject]
-        private void Constructor(IMainUIFactory mainUIFactory) =>
+        private void Constructor(MainUIFactory mainUIFactory) =>
             this.mainUIFactory = mainUIFactory;
 
         public void Init() =>

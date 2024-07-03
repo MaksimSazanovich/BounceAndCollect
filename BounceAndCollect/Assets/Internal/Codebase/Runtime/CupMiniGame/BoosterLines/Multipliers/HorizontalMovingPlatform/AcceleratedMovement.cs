@@ -21,25 +21,21 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers.Horizon
             {
                 isAccelerating = false;
             }
-
-            // Разгон
+            
             if (isAccelerating)
             {
                 currentSpeed += acceleration * Time.deltaTime;
                 currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
             }
-            // Торможение
             else
             {
                 currentSpeed -= deceleration * Time.deltaTime;
                 currentSpeed = Mathf.Max(currentSpeed, 0f);
             }
-
-            // Движение объекта
+            
             transform.position =
                 Vector3.MoveTowards(transform.position, target, currentSpeed * Time.deltaTime);
-
-            // Остановка объекта, если достиг цели
+            
             if (transform.position == target)
             {
                 currentSpeed = 0f;

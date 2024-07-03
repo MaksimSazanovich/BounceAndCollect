@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
 {
-    public sealed class ResourceProvider : IResourceProvider
+    public sealed class ResourceProvider
     {
         private CurtainConfig curtainConfig;
         private BallConfig ballConfig;

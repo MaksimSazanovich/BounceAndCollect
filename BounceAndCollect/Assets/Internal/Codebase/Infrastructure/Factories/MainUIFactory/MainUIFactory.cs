@@ -3,17 +3,18 @@ using Internal.Codebase.Runtime.UI.MainUI.LoadingCurtain;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
+using ResourceProvider = Internal.Codebase.Infrastructure.Services.ResourceProvider.ResourceProvider;
 
 namespace Internal.Codebase.Infrastructure.Factories.MainUIFactory
 {
-    class MainUIFactory : IMainUIFactory
+    public sealed class MainUIFactory
     {
         private GameObject currentPefab;
         private DiContainer container;
-        private IResourceProvider resourceProvider;
+        private ResourceProvider resourceProvider;
         
         [Inject]
-        private void Construct(DiContainer container, IResourceProvider resourceProvider)
+        private void Construct(DiContainer container, ResourceProvider resourceProvider)
         {
             this.resourceProvider = resourceProvider;
             this.container = container;

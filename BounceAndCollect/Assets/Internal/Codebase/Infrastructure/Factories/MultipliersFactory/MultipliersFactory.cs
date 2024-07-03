@@ -3,16 +3,17 @@ using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
 using UnityEngine;
 using Zenject;
+using ResourceProvider = Internal.Codebase.Infrastructure.Services.ResourceProvider.ResourceProvider;
 
 namespace Internal.Codebase.Infrastructure.Factories.MultipliersFactory
 {
-    public class MultipliersFactory : IMultipliersFactory
+    public sealed class MultipliersFactory
     {
-        private IResourceProvider resourceProvider;
+        private ResourceProvider resourceProvider;
         private DiContainer container;
 
         [Inject]
-        private void Constructor(IResourceProvider resourceProvider, DiContainer container)
+        private void Constructor(ResourceProvider resourceProvider, DiContainer container)
         {
             this.container = container;
             this.resourceProvider = resourceProvider;

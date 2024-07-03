@@ -7,7 +7,7 @@ using Internal.Codebase.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using Random = UnityEngine.Random;
+using ResourceProvider = Internal.Codebase.Infrastructure.Services.ResourceProvider.ResourceProvider;
 
 
 namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
@@ -15,7 +15,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
     [DisallowMultipleComponent]
     public class MultiplierX : BoosterLine, IEnumerable
     {
-        private IResourceProvider resourceProvider;
+        private ResourceProvider resourceProvider;
         [field: SerializeField] public int Value { get; private set; }
 
         protected override void OnValidate()
@@ -25,7 +25,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
         }
 
         [Inject]
-        private void Constructor(IResourceProvider resourceProvider)
+        private void Constructor(ResourceProvider resourceProvider)
         {
             this.resourceProvider = resourceProvider;
         }

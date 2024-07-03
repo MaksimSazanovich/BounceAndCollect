@@ -4,15 +4,16 @@ using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using NTC.Pool;
 using UnityEngine;
 using Zenject;
+using ResourceProvider = Internal.Codebase.Infrastructure.Services.ResourceProvider.ResourceProvider;
 
 namespace Internal.Codebase.Infrastructure.Factories.BallsFactory
 {
-    class BallsFactory : IBallsFactory
+    public sealed class BallsFactory
     {
-        private IResourceProvider resourceProvider;
+        private ResourceProvider resourceProvider;
 
         [Inject]
-        private void Constructor(IResourceProvider resourceProvider)
+        private void Constructor(ResourceProvider resourceProvider)
         {
             this.resourceProvider = resourceProvider;
         }

@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.BallsFactory;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
-using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
 using Internal.Codebase.Runtime.CupMiniGame.Cup;
+using Internal.Codebase.Runtime.Shop.Collections;
 using Internal.Codebase.Utilities.PositionOffsetCalculator;
 using ModestTree;
 using NTC.Pool;
@@ -22,8 +22,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         public static Action<int, HashSet<int>, Vector3> OnCollidedBall;
         [SerializeField] private Sprite[] sprites;
         [SerializeField] private Sprite defaultSprite;
+        [SerializeField] private BallsSkins currentBallsSkin;
 
-        private IBallsFactory ballsFactory;
+        private BallsFactory ballsFactory;
         private int ballsOnStartMiniGame = 3;
         private Cup.Cup cup;
         private CupDropController cupDropController;
@@ -31,7 +32,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         private float spawnOffset = 0.1f;
 
         [Inject]
-        public void Constructor(IBallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController)
+        public void Constructor(BallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController)
         {
             this.cup = cup;
             this.ballsFactory = ballsFactory;
@@ -56,6 +57,11 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
             {
                 CreateFirstBalls();
                 DespawnBalls();
+            }
+
+            switch (currentBallsSkin)
+            {
+                
             }
         }
 

@@ -1,6 +1,7 @@
 using Internal.Codebase.Infrastructure.Factories.BallsFactory;
 using Internal.Codebase.Infrastructure.Factories.MainUIFactory;
 using Internal.Codebase.Infrastructure.Factories.MultipliersFactory;
+using Internal.Codebase.Infrastructure.Factories.SkinsFactories;
 using UnityEngine;
 using Zenject;
 
@@ -11,9 +12,10 @@ namespace Internal.Codebase.Infrastructure.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<IMainUIFactory>().To<MainUIFactory>().AsSingle().NonLazy();
-            Container.Bind<IBallsFactory>().To<BallsFactory>().AsSingle().NonLazy();
-            Container.Bind<IMultipliersFactory>().To<MultipliersFactory>().AsSingle().NonLazy();
+            Container.Bind<MainUIFactory>().AsSingle().NonLazy();
+            Container.Bind<BallsFactory>().AsSingle().NonLazy();
+            Container.Bind<MultipliersFactory>().AsSingle().NonLazy();
+            Container.Bind<BallsSkinsFactory>().AsSingle().NonLazy();
         }
     }
 }

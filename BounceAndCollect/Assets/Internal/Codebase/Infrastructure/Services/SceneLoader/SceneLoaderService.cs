@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.SceneLoader
 {
-    public sealed class SceneLoaderService : ISceneLoaderService
+    public sealed class SceneLoaderService
     {
         private ICoroutineRunner coroutineRunner;
 
