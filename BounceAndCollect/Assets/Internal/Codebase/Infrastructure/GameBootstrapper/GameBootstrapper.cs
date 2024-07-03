@@ -10,12 +10,12 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
 {
     public class GameBootstrapper : MonoBehaviour
     {
-        private ISceneLoaderService loaderService;
-        private ICurtainService curtainService;
+        private SceneLoaderService loaderService;
+        private CurtainService curtainService;
         private CurtainConfig curtainConfig;
 
         [Inject]
-        private void Constructor(ISceneLoaderService loaderService, ICurtainService curtainService,
+        private void Constructor(SceneLoaderService loaderService, CurtainService curtainService,
             CurtainConfig curtainConfig)
         {
             this.curtainConfig = curtainConfig;

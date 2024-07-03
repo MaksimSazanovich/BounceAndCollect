@@ -29,10 +29,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
         {
             this.resourceProvider = resourceProvider;
         }
-
         private void Start()
         {
-            Debug.Log(resourceProvider);
             int randomValue = HierarchyRandom.Range(resourceProvider.LoadMultipliersConfig().MinValue,
                 resourceProvider.LoadMultipliersConfig().MaxValue);
             Value = randomValue;

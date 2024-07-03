@@ -1,10 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.BallsFactory;
+using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using Internal.Codebase.Runtime.CupMiniGame.Cup;
-using Internal.Codebase.Runtime.Shop.Collections;
+using Internal.Codebase.Runtime.Shop.Skins;
 using Internal.Codebase.Utilities.PositionOffsetCalculator;
 using ModestTree;
 using NTC.Pool;
@@ -19,9 +19,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
     {
         [field: SerializeField] public List<Ball.Ball> Balls { get; private set; }
         [field: SerializeField] public int MaxBallsCount { get; private set; }
-        public static Action<int, HashSet<int>, Vector3> OnCollidedBall;
-        [SerializeField] private Sprite[] sprites;
-        [SerializeField] private Sprite defaultSprite;
+        [SerializeField] private List<Sprite> sprites = new();
         [SerializeField] private BallsSkins currentBallsSkin;
 
         private BallsFactory ballsFactory;
@@ -30,10 +28,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         private CupDropController cupDropController;
         private float timeBetweenSpawnFirstBalls = 0.1f;
         private float spawnOffset = 0.1f;
+        private SkinsResourceProvider skinsResourceProvider;
 
         [Inject]
-        public void Constructor(BallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController)
+        public void Constructor(BallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController,
+            SkinsResourceProvider skinsResourceProvider)
         {
+            this.skinsResourceProvider = skinsResourceProvider;
             this.cup = cup;
             this.ballsFactory = ballsFactory;
             this.cupDropController = cupDropController;
@@ -53,16 +54,15 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
 
         private void Start()
         {
+            sprites = skinsResourceProvider.LoadBallsSkinsConfig(currentBallsSkin).Sprites;
+            
             if (Balls.IsEmpty())
             {
                 CreateFirstBalls();
                 DespawnBalls();
             }
 
-            switch (currentBallsSkin)
-            {
-                
-            }
+            
         }
 
         private void Init()
@@ -74,15 +74,16 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < MaxBallsCount; i++)
             {
-                Balls.Add(ballsFactory.CreateBall(transform, Vector3.zero, defaultSprite));
+                Balls.Add(ballsFactory.CreateBall(transform, Vector3.zero, sprites[Random.Range(0, sprites.Count-1)]));
             }
         }
-        
+
         private IEnumerator CreateFirstBallsWithDelay()
         {
             for (int i = 0; i < ballsOnStartMiniGame; i++)
             {
-                Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position, sprites[Random.Range(0, sprites.Length)]));
+                Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position,
+                    sprites[Random.Range(0, sprites.Count-1)]));
                 yield return new WaitForSeconds(timeBetweenSpawnFirstBalls);
             }
         }
@@ -91,10 +92,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < count; i++)
             {
-                Balls.Add(ballsFactory.CreateBall(transform, PositionOffsetCalculator.CalculateBothAxis(position, spawnOffset), lockBoosterLineIDs, sprites[Random.Range(0, sprites.Length)]));
+                Balls.Add(ballsFactory.CreateBall(transform,
+                    PositionOffsetCalculator.CalculateBothAxis(position, spawnOffset), lockBoosterLineIDs,
+                    sprites[Random.Range(0, sprites.Count-1)]));
             }
         }
-        
+
         private void DespawnBalls()
         {
             for (int i = 0; i < MaxBallsCount; i++)

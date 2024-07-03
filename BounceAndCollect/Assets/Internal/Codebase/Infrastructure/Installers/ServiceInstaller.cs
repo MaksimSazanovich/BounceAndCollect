@@ -16,7 +16,9 @@ namespace Internal.Codebase.Infrastructure.Installers
         {
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle().NonLazy();
             Container.Bind<SceneLoaderService>().AsSingle().NonLazy();
+            
             Container.Bind<ResourceProvider>().AsSingle().NonLazy();
+            Container.Bind<SkinsResourceProvider>().AsSingle().NonLazy();
             
             Container.Bind<CurtainService>().AsSingle().NonLazy();
         }
