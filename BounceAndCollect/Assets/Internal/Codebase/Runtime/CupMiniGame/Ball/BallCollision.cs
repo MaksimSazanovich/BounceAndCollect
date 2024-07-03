@@ -25,9 +25,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
 
         public void Constructor(HashSet<int> lockBoosterLineIDs)
         {
-            LockBoosterLineIDs = lockBoosterLineIDs;
+            LockBoosterLineIDs = new HashSet<int>(lockBoosterLineIDs);
         }
-        
+
 
         public void LockMultiplierX(MultiplierX multiplierX)
         {
@@ -53,7 +53,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
                 {
                     var multiplierX = boosterLine.GetComponent<MultiplierX>();
                     LockBoosterLineIDs.Add(multiplierX.ID);
-                    OnCollidedMultiplierX?.Invoke(multiplierX.Value - 1, new HashSet<int>(LockBoosterLineIDs),
+                    OnCollidedMultiplierX?.Invoke(multiplierX.Value - 1, LockBoosterLineIDs,
                         transform.position);
                 }
                     break;

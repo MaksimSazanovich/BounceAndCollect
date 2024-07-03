@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85a96318b7f4055903b43849e1953a7, type: 3}
   m_Name: DigitalCircus
   m_EditorClassIdentifier: 
-  <sprites>k__BackingField: []
+  <Sprites>k__BackingField:
+  - {fileID: 21300000, guid: 985d8d130836e0344b16d91f5668a92a, type: 3}
+  - {fileID: 21300000, guid: d38527c81883a894abe2f2034260729a, type: 3}
+  - {fileID: 21300000, guid: 04f51ac6edb143645b0d4b95c888b339, type: 3}
+  - {fileID: 21300000, guid: b891a436714356c4f8b261b84d35317a, type: 3}

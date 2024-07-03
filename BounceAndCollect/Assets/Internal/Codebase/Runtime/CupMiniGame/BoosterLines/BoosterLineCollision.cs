@@ -1,4 +1,3 @@
-using System;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using Internal.Codebase.Runtime.UI.Animations;
 using UnityEngine;

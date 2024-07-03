@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85a96318b7f4055903b43849e1953a7, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
-  <sprites>k__BackingField: []
+  <Sprites>k__BackingField:
+  - {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
