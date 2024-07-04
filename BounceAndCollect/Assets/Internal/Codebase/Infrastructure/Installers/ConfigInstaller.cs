@@ -3,6 +3,7 @@ using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
 using Internal.Codebase.Runtime.Shop;
 using Internal.Codebase.Runtime.UI.MainUI.LoadingCurtain;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Installers
@@ -12,7 +13,7 @@ namespace Internal.Codebase.Infrastructure.Installers
     {
         [SerializeField] private CurtainConfig curtainConfig;
         [SerializeField] private BallConfig ballConfig;
-        [SerializeField] private MultipliersConfig multipliersConfig;
+        [FormerlySerializedAs("multipliersConfig")] [SerializeField] private MultiplierConfig multiplierConfig;
         
         [Header("BallsSkins")]
         [SerializeField] private BallsSkinsConfig defaultSkinsConfig;
@@ -22,7 +23,7 @@ namespace Internal.Codebase.Infrastructure.Installers
         {
             Container.Bind<CurtainConfig>().FromInstance(curtainConfig).AsSingle();
             Container.Bind<BallConfig>().FromInstance(ballConfig).AsSingle();
-            Container.Bind<MultipliersConfig>().FromInstance(multipliersConfig).AsSingle();
+            Container.Bind<MultiplierConfig>().FromInstance(multiplierConfig).AsSingle();
 
             Container.Bind<BallsSkinsConfig>().FromInstance(defaultSkinsConfig);
             Container.Bind<BallsSkinsConfig>().FromInstance(digitalCircusSkinsConfig);

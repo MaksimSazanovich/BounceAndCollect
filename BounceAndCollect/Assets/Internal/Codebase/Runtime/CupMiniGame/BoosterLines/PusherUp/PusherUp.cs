@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Internal.Codebase.Runtime.Constants;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
@@ -20,7 +19,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.PusherUp
             if (other.TryGetComponent(out BallCollision ballCollision) &&
                 transform.position.y < other.transform.position.y && !ballCollision.LockBoosterLineIDs.Contains(ID))
             {
-                //ballCollision.LockPusherUpID(this);
                 ballCollision.Lock(this);
                 PushUpCollision(other);
             }
@@ -37,9 +35,16 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.PusherUp
         {
             Rigidbody2D otherRigidbody2D = collisionGameObject.GetComponent<Rigidbody2D>();
             otherRigidbody2D.velocity = Vector2.zero;
-            otherRigidbody2D.AddForce(
+            /*otherRigidbody2D.AddForce(
                 new Vector2(Random.Range(otherPositionX - pushOffsetX, -otherPositionX - pushOffsetX), force),
-                ForceMode2D.Impulse);
+                ForceMode2D.Impulse);*/
+            
+            if(otherPositionX > 0)
+                otherRigidbody2D.AddForce(new Vector2(Random.Range(otherPositionX - pushOffsetX, -otherPositionX - pushOffsetX), force),
+                    ForceMode2D.Impulse);
+            else 
+                otherRigidbody2D.AddForce(new Vector2(Random.Range(otherPositionX + pushOffsetX, otherPositionX + pushOffsetX*2), force),
+                    ForceMode2D.Impulse);
         }
 
         private IEnumerator ChangeCollisionObjectLayer(BallCollision ballCollision)

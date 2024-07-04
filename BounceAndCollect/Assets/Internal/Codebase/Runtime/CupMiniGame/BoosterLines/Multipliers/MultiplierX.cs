@@ -7,7 +7,6 @@ using Internal.Codebase.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using ResourceProvider = Internal.Codebase.Infrastructure.Services.ResourceProvider.ResourceProvider;
 
 
 namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
@@ -15,41 +14,32 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
     [DisallowMultipleComponent]
     public class MultiplierX : BoosterLine, IEnumerable
     {
-        private ResourceProvider resourceProvider;
+        private BoosterLinesResourceProvider resourceProvider;
         [field: SerializeField] public int Value { get; private set; }
+
+        [Inject]
+        private void Constructor(BoosterLinesResourceProvider resourceProvider)
+        {
+            this.resourceProvider = resourceProvider;
+        }
 
         protected override void OnValidate()
         {
             base.OnValidate();
-            SetSettings(Value);
+            Init(Value);
         }
 
-        [Inject]
-        private void Constructor(ResourceProvider resourceProvider)
-        {
-            this.resourceProvider = resourceProvider;
-        }
         private void Start()
         {
-            int randomValue = HierarchyRandom.Range(resourceProvider.LoadMultipliersConfig().MinValue,
-                resourceProvider.LoadMultipliersConfig().MaxValue);
+            int randomValue = HierarchyRandom.Range(resourceProvider.LoadMultiplierConfig().MinValue,
+                resourceProvider.LoadMultiplierConfig().MaxValue);
             Value = randomValue;
-            SetSettings(Value);
+            
+            Init(Value);
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        public void Init(int value)
         {
-            if (other.TryGetComponent(out BallCollision ballCollision) &&
-                transform.position.y < other.transform.position.y && !ballCollision.LockBoosterLineIDs.Contains(ID))
-            {
-                //ballCollision.LockMultiplierX(this);
-                ballCollision.Lock(this);
-            }
-        }
-
-        public void SetSettings(int value)
-        {
-            Value = value;
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             Text valueText = GetComponentInChildren<Text>();
 
@@ -77,6 +67,16 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
                 case 7:
                     spriteRenderer.color = Colors.x5;
                     break;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out BallCollision ballCollision) &&
+                transform.position.y < other.transform.position.y && !ballCollision.LockBoosterLineIDs.Contains(ID))
+            {
+                //ballCollision.LockMultiplierX(this);
+                ballCollision.Lock(this);
             }
         }
 

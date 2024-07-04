@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55b27c5bb18e4dd0905021310d8a7fa7, type: 3}
-  m_Name: Multipliers
+  m_Name: Multiplier
   m_EditorClassIdentifier: 
   <MultiplierX>k__BackingField: {fileID: 366335912356219736, guid: 413937e9196389e43ae99ff6e03a21af, type: 3}
   <MinValue>k__BackingField: 2

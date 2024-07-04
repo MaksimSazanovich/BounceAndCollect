@@ -21,6 +21,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         [field: SerializeField] public int MaxBallsCount { get; private set; }
         [SerializeField] private List<Sprite> sprites = new();
         [SerializeField] private BallsSkins currentBallsSkin;
+        public int spawnedCount;
 
         private BallsFactory ballsFactory;
         private int ballsOnStartMiniGame = 3;
@@ -29,6 +30,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         private float timeBetweenSpawnFirstBalls = 0.1f;
         private float spawnOffset = 0.1f;
         private SkinsResourceProvider skinsResourceProvider;
+        [SerializeField] private float waitForSecondsRealtime = 0.1f;
 
         [Inject]
         public void Constructor(BallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController,
@@ -82,6 +84,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < ballsOnStartMiniGame; i++)
             {
+                spawnedCount++;
                 Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position,
                     sprites[Random.Range(0, sprites.Count-1)]));
                 yield return new WaitForSeconds(timeBetweenSpawnFirstBalls);
@@ -90,11 +93,19 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
 
         private void CreateSecondBalls(int count, HashSet<int> lockBoosterLineIDs, Vector3 position)
         {
+            StartCoroutine(CreateSecondBalls1(count, lockBoosterLineIDs, position));
+        }
+        
+        private IEnumerator CreateSecondBalls1(int count, HashSet<int> lockBoosterLineIDs, Vector3 position)
+        {
             for (int i = 0; i < count; i++)
             {
-                Balls.Add(ballsFactory.CreateBall(transform,
+                spawnedCount++;
+                ballsFactory.CreateBall(transform,
                     PositionOffsetCalculator.CalculateBothAxis(position, spawnOffset), lockBoosterLineIDs,
-                    sprites[Random.Range(0, sprites.Count-1)]));
+                    sprites[Random.Range(0, sprites.Count - 1)]);
+                
+                yield return waitForSecondsRealtime;
             }
         }
 

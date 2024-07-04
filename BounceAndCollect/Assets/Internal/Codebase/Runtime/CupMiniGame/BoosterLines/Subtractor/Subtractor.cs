@@ -1,5 +1,6 @@
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -14,17 +15,22 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Subtractor
 
         private void Start()
         {
-            value = values[Random.Range(0, values.Length-1)];
+            Init();
+        }
+
+        public void Init()
+        {
+            value = values[Random.Range(0, values.Length - 1)];
             valueText.text = value.ToString();
         }
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out BallCollision ball))
             {
                 value += 1;
                 valueText.text = value.ToString();
-                if(value >= 0)
+                if (value >= 0)
                     Destroy(gameObject);
                 ball.Lock(this);
             }

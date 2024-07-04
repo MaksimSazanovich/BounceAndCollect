@@ -1,6 +1,7 @@
-using Internal.Codebase.Infrastructure.Factories.MultipliersFactory;
+using Internal.Codebase.Infrastructure.Factories.BoosterLinesFactory;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
+using Internal.Codebase.Utilities;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -11,8 +12,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
     [DisallowMultipleComponent]
     public sealed class RandomMultiplierX : BoosterLine
     {
-        private MultipliersFactory multipliersFactory;
-        private ResourceProvider resourceProvider;
+        private BoosterLinesFactory boosterLinesFactory;
+        private BoosterLinesResourceProvider resourceProvider;
         private SpriteRenderer spriteRenderer;
 
         private void Awake()
@@ -21,20 +22,20 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers
         }
 
         [Inject]
-        private void Constructor(MultipliersFactory multipliersFactory, ResourceProvider resourceProvider)
+        private void Constructor(BoosterLinesFactory boosterLinesFactory, BoosterLinesResourceProvider resourceProvider)
         {
             this.resourceProvider = resourceProvider;
-            this.multipliersFactory = multipliersFactory;
+            this.boosterLinesFactory = boosterLinesFactory;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out BallCollision ballCollision))
             {
-                int randomValue = Random.Range(resourceProvider.LoadMultipliersConfig().MinValue,
-                    resourceProvider.LoadMultipliersConfig().MaxValue);
-                
-                multipliersFactory.CreateMultiplierX(randomValue, spriteRenderer.size, transform.position);
+                int randomValue = HierarchyRandom.Range(resourceProvider.LoadMultiplierConfig().MinValue,
+                    resourceProvider.LoadMultiplierConfig().MaxValue);
+
+                boosterLinesFactory.CreateMultiplierX(randomValue, spriteRenderer.size, transform.position);
                 gameObject.SetActive(false);
             }
         }

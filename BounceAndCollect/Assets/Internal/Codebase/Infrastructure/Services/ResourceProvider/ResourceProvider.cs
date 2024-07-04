@@ -10,7 +10,6 @@ namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
     {
         private CurtainConfig curtainConfig;
         private BallConfig ballConfig;
-        private MultipliersConfig multipliersConfig;
 
         public CurtainConfig LoadCurtainConfig()
         {
@@ -26,11 +25,6 @@ namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
             return ballConfig;
         }
 
-        public MultipliersConfig LoadMultipliersConfig()
-        {
-            if (multipliersConfig == null)
-                multipliersConfig = Resources.Load<MultipliersConfig>(AssetPath.MultipliersConfig);
-            return multipliersConfig;
-        }
+        public void UnloadAsset(Object asset) => Resources.UnloadAsset(asset);
     }
 }

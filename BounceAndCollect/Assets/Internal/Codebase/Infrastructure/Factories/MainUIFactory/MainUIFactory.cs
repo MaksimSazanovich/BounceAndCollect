@@ -25,6 +25,7 @@ namespace Internal.Codebase.Infrastructure.Factories.MainUIFactory
             var config = resourceProvider.LoadCurtainConfig();
 
             var view = Object.Instantiate(config.Curtain);
+            resourceProvider.UnloadAsset(config);
             view.Constructor(config.AnimationDuration);
 
             return view;

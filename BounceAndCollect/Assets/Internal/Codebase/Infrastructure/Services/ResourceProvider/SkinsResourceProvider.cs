@@ -10,8 +10,8 @@ namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
         public BallsSkinsConfig LoadBallsSkinsConfig(BallsSkins skin)
         {
             BallsSkinsConfig ballsSkinsConfig = Resources.Load<BallsSkinsConfig>(AssetPath.BallsSkinsConfig + skin);
-            Debug.Log(ballsSkinsConfig);
             return ballsSkinsConfig;
         }
+        public void UnloadAsset(Object asset) => Resources.UnloadAsset(asset);
     }
 }
