@@ -24,7 +24,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         public int spawnedCount;
 
         private BallsFactory ballsFactory;
-        private int ballsOnStartMiniGame = 3;
+        private int ballsOnStartMiniGame = 50;
         private Cup.Cup cup;
         private CupDropController cupDropController;
         private float timeBetweenSpawnFirstBalls = 0.1f;

@@ -1,4 +1,5 @@
 using Internal.Codebase.Infrastructure.Constants;
+using Internal.Codebase.Runtime.MetaGame.Shop;
 using Internal.Codebase.Runtime.Shop;
 using Internal.Codebase.Runtime.Shop.Skins;
 using UnityEngine;

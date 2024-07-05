@@ -18,6 +18,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
         public HashSet<int> LockBoosterLineIDs { get; private set; } = new();
         public static Action<int, HashSet<int>, Vector3> OnCollidedMultiplierX;
 
+        public static Action OnTriggeredCupKepeer;
+
         private void Start()
         {
             collider2D = GetComponent<CircleCollider2D>();
@@ -68,6 +70,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
                     NightPool.Despawn(gameObject);
                     break;
             }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out CupKeeper.CupKeeper cupKeeper))
+                OnTriggeredCupKepeer?.Invoke();
         }
 
         [Button]
