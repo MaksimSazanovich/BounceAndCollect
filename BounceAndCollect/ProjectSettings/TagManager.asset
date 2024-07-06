@@ -44,3 +44,6 @@ TagManager:
   - name: CupMiniGame
     uniqueID: 823164123
     locked: 0
+  - name: UI
+    uniqueID: 1680816391
+    locked: 0

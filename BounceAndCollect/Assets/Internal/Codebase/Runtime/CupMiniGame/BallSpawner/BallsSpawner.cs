@@ -19,18 +19,19 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
     {
         [field: SerializeField] public List<Ball.Ball> Balls { get; private set; }
         [field: SerializeField] public int MaxBallsCount { get; private set; }
+        
         [SerializeField] private List<Sprite> sprites = new();
         [SerializeField] private BallsSkins currentBallsSkin;
-        public int spawnedCount;
-
-        private BallsFactory ballsFactory;
+        public uint SpawnedCount { get; private set; }
         private int ballsOnStartMiniGame = 50;
-        private Cup.Cup cup;
-        private CupDropController cupDropController;
+        [SerializeField] private float waitForSecondsRealtime = 0.1f;
         private float timeBetweenSpawnFirstBalls = 0.1f;
         private float spawnOffset = 0.1f;
+
+        private BallsFactory ballsFactory;
+        private Cup.Cup cup;
+        private CupDropController cupDropController;
         private SkinsResourceProvider skinsResourceProvider;
-        [SerializeField] private float waitForSecondsRealtime = 0.1f;
 
         [Inject]
         public void Constructor(BallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController,
@@ -84,7 +85,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < ballsOnStartMiniGame; i++)
             {
-                spawnedCount++;
+                SpawnedCount++;
                 Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position,
                     sprites[Random.Range(0, sprites.Count-1)]));
                 yield return new WaitForSeconds(timeBetweenSpawnFirstBalls);
@@ -100,7 +101,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         {
             for (int i = 0; i < count; i++)
             {
-                spawnedCount++;
+                SpawnedCount++;
                 ballsFactory.CreateBall(transform,
                     PositionOffsetCalculator.CalculateBothAxis(position, spawnOffset), lockBoosterLineIDs,
                     sprites[Random.Range(0, sprites.Count - 1)]);
