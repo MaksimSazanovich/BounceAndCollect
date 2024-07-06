@@ -9,7 +9,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupKeeper
     [DisallowMultipleComponent]
     public sealed class CupKeeper : MonoBehaviour
     {
-        public Action OnTriggeredBall;
+        public Action OnBallsEnded;
         [SerializeField] private Vector2 point;
         [SerializeField] private Vector2 size;
         [SerializeField] private LayerMask layer;
@@ -42,7 +42,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupKeeper
             if (balls.Length == 0 && isEnd == false)
             {
                 isEnd = true;
-                Debug.Log("END");
+                OnBallsEnded?.Invoke();
             }
         }
 

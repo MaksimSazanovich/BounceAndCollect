@@ -25,31 +25,33 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Levels
 
         private void Start()
         {
-            //SetSecondType();
+            SetSecondType();
         }
 
         [Button]
         public void Flip()
         {
-            transform.localScale = new(transform.localScale.x * -1, 1,1);
+            transform.localScale = new(transform.localScale.x * -1, 1, 1);
             foreach (BoosterLine boosterLine in boosterLines)
             {
-                boosterLine.transform.localScale = new(boosterLine.transform.localScale.x * -1, 1,1);
+                boosterLine.transform.localScale = new(boosterLine.transform.localScale.x * -1, 1, 1);
             }
         }
 
+        [Button]
         public void SetSecondType()
         {
             HashSet<MultiplierX> futureSubtractors = new();
-            for (int i = 0; i < multipliersX.Length-1; i++)
+            for (int i = 0; i < multipliersX.Length - 1; i++)
             {
-                futureSubtractors.Add(multipliersX[Random.Range(0,boosterLines.Length)]);
+                futureSubtractors.Add(multipliersX[Random.Range(0, multipliersX.Length)]);
             }
 
             foreach (var futureSubtractor in futureSubtractors)
             {
                 futureSubtractor.gameObject.SetActive(false);
-                boosterLinesFactory.CreateSubtractor(futureSubtractor.GetComponent<SpriteRenderer>().size, futureSubtractor.transform.position);
+                boosterLinesFactory.CreateSubtractor(futureSubtractor.GetComponent<SpriteRenderer>().size,
+                    futureSubtractor.transform.position, transform);
             }
         }
     }
