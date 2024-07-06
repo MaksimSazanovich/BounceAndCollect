@@ -20,6 +20,7 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<ResourceProvider>().AsSingle().NonLazy();
             Container.Bind<SkinsResourceProvider>().AsSingle().NonLazy();
             Container.Bind<BoosterLinesResourceProvider>().AsSingle().NonLazy();
+            Container.Bind<LevelTemplatesResourceProvider>().AsSingle().NonLazy();
             
             Container.Bind<CurtainService>().AsSingle().NonLazy();
         }

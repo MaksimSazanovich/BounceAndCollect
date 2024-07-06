@@ -38,7 +38,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupKeeper
 
         private IEnumerator Timer(Collider2D[] balls)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
             if (balls.Length == 0 && isEnd == false)
             {
                 isEnd = true;

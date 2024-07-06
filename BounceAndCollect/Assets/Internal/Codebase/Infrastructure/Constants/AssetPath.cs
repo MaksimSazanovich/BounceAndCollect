@@ -9,5 +9,8 @@ namespace Internal.Codebase.Infrastructure.Constants
         public const string SubtractorConfig = "StaticData/BoosterLines/Subtractor/SutractorConfig";
 
         public const string BallsSkinsConfig = "StaticData/Skins/Balls/";
+        public const string LevelsTemplate = "StaticData/Levels/Level_";
+
+        public const string GameData = "StaticData/GameData/GameData";
     }
 }

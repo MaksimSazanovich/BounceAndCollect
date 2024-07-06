@@ -1,6 +1,5 @@
 using Internal.Codebase.Infrastructure.Constants;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
-using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
 using Internal.Codebase.Runtime.UI.MainUI.LoadingCurtain;
 using UnityEngine;
 

@@ -34,17 +34,19 @@ namespace Internal.Codebase.Infrastructure.Factories.BoosterLinesFactory
             return multiplierXComponent;
         }
 
-        public Subtractor CreateSubtractor(Vector2 size, Vector3 position, Transform parent)
+        public Subtractor CreateSubtractor(Vector2 size, Transform transform, Transform parent)
         {
+            Debug.Log(transform.localScale);
             var config = boosterLinesResourceProvider.LoadSubtractorConfig();
             
-            var subtractor = container.InstantiatePrefab(config.Subtractor, position, Quaternion.identity, parent);
+            var subtractor = container.InstantiatePrefab(config.Subtractor, transform.position, Quaternion.identity, parent);
             boosterLinesResourceProvider.UnloadAsset(config);
-            
+
             subtractorComponent = subtractor.GetComponent<Subtractor>();
             subtractorComponent.Init();
             subtractorComponent.SetSize(size);
-            
+            subtractorComponent.transform.localScale = new(transform.localScale.x, 1);
+
             return subtractorComponent;
         }
     }

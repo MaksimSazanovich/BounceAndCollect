@@ -180,7 +180,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 2036666263073472718}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3d074fcfef9e2a9458560995389486f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -319,7 +319,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 2313845403200703891}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3d074fcfef9e2a9458560995389486f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -441,7 +441,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 4893922294563336269}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3d074fcfef9e2a9458560995389486f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -634,5 +634,5 @@ Transform:
   - {fileID: 8882980159433799410}
   - {fileID: 8708850871444286649}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
