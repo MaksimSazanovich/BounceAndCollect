@@ -1390,8 +1390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5cd47851976451a9300c04bce8a0bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {x: 1.64, y: 0}
-  size: {x: 1.67, y: 1.4}
+  point: {x: 0, y: -3.7}
+  size: {x: 4.69, y: 1.81}
   layer:
     serializedVersion: 2
     m_Bits: 128

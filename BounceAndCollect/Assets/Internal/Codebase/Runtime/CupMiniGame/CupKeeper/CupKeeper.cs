@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Internal.Codebase.Runtime.Constants;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using NTC.Pool;
 using UnityEngine;
@@ -14,29 +13,35 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupKeeper
         [SerializeField] private Vector2 point;
         [SerializeField] private Vector2 size;
         [SerializeField] private LayerMask layer;
+        private bool isStart = true;
+        private bool isEnd;
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out BallCollision ballCollision))
             {
-                //OnTriggeredBall?.Invoke();
+                isStart = false;
                 NightPool.Despawn(ballCollision.gameObject);
             }
         }
 
         private void Update()
         {
-            Collider2D[] balls = Physics2D.OverlapBoxAll(point, size, 0 , layer);
-            if (balls.Length == 0)
+            if (isStart == false && isEnd == false)
             {
-                StartCoroutine(Timer(balls));
+                Collider2D[] balls = Physics2D.OverlapBoxAll(point, size, 0 , layer);
+                if (balls.Length == 0)
+                {
+                    StartCoroutine(Timer(balls));
+                }
             }
         }
 
         private IEnumerator Timer(Collider2D[] balls)
         {
-            yield return new WaitForSeconds(3);
-            if (balls.Length == 0)
+            yield return new WaitForSeconds(1);
+            if (balls.Length == 0 && isEnd == false)
             {
+                isEnd = true;
                 Debug.Log("END");
             }
         }
