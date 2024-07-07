@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.Cup
@@ -15,6 +16,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         
         public Action OnMouseDown;
         private bool canDrop = true;
+        [SerializeField] private float rotateDuration;
+        [SerializeField] private Ease ease;
 
         private void Start()
         {
@@ -30,6 +33,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
                 transform.position = new Vector3(mousePosition.x, transform.position.y, 0);
 
                 CheckBoundaries();
+
+                if (transform.eulerAngles.z == 0)
+                    transform.DORotate(new(0, 0, -90), rotateDuration).SetEase(ease);
 
                 OnMouseDown?.Invoke();
             }

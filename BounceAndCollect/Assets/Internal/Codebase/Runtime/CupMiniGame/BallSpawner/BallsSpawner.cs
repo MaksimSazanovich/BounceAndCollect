@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.BallsFactory;
@@ -32,6 +33,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         private Cup.Cup cup;
         private CupDropController cupDropController;
         private SkinsResourceProvider skinsResourceProvider;
+
+        public Action<int> OnCreatedBall;
 
         [Inject]
         public void Constructor(BallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController,
@@ -83,11 +86,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
 
         private IEnumerator CreateFirstBallsWithDelay()
         {
-            for (int i = 0; i < ballsOnStartMiniGame; i++)
+            for (int i = 1; i <= ballsOnStartMiniGame; i++)
             {
                 SpawnedCount++;
                 Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position,
                     sprites[Random.Range(0, sprites.Count)]));
+                OnCreatedBall?.Invoke(ballsOnStartMiniGame - i);
                 yield return new WaitForSeconds(timeBetweenSpawnFirstBalls);
             }
         }

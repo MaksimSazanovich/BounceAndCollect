@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7910188166190611263}
   - component: {fileID: 1283877312673236406}
   - component: {fileID: 2179949916010990506}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4415324092208698207}
   - component: {fileID: 3647086659843935978}
   - component: {fileID: 1879460770923478875}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 6771041540789102049}
   - component: {fileID: 6487750630807702910}
   - component: {fileID: 4367720938705239605}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
