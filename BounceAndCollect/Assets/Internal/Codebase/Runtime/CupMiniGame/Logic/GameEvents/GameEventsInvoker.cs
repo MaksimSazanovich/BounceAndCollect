@@ -9,22 +9,22 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents
     {
         public Action OnStarted;
         public Action OnEnded;
-        private CupKeeper.CupKeeper cupKeeper;
+        private CupCatcher.CupCatcher cupCatcher;
 
         [Inject]
-        private void Constructor(CupKeeper.CupKeeper cupKeeper)
+        private void Constructor(CupCatcher.CupCatcher cupCatcher)
         {
-            this.cupKeeper = cupKeeper;
+            this.cupCatcher = cupCatcher;
         }
 
         private void OnEnable()
         {
-            cupKeeper.OnBallsEnded += () => OnEnded?.Invoke();
+            cupCatcher.OnBallsEnded += () => OnEnded?.Invoke();
         }
 
         private void OnDisable()
         {
-            cupKeeper.OnBallsEnded -= () => OnEnded?.Invoke();
+            cupCatcher.OnBallsEnded -= () => OnEnded?.Invoke();
         }
     }
 }

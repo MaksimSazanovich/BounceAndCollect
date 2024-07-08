@@ -74,7 +74,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out CupKeeper.CupKeeper cupKeeper))
+            if (other.TryGetComponent(out CupCatcher.CupCatcher cupKeeper))
                 OnTriggeredCupKepeer?.Invoke();
         }
 

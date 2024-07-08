@@ -19,12 +19,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private bool canDrop = true;
         [SerializeField] private float rotateDuration;
         [SerializeField] private Ease ease;
-        private CupKeeper.CupKeeper cupKeeper;
+        private CupCatcher.CupCatcher cupCatcher;
 
         [Inject]
-        private void Constructor(CupKeeper.CupKeeper cupKeeper)
+        private void Constructor(CupCatcher.CupCatcher cupCatcher)
         {
-            this.cupKeeper = cupKeeper;
+            this.cupCatcher = cupCatcher;
         }
         private void Start()
         {
@@ -58,7 +58,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         {
             canMove = false;
             transform.eulerAngles = Vector3.zero;
-            transform.position = cupKeeper.transform.position;
+            transform.position = cupCatcher.transform.position;
         }
     }
 }

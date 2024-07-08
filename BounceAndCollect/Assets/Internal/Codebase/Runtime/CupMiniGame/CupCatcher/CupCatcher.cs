@@ -6,10 +6,10 @@ using NTC.Pool;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Internal.Codebase.Runtime.CupMiniGame.CupKeeper
+namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
 {
     [DisallowMultipleComponent]
-    public sealed class CupKeeper : MonoBehaviour
+    internal sealed class CupCatcher : MonoBehaviour
     {
         public Action OnBallsEnded;
         [SerializeField] private Vector2 point;
@@ -24,8 +24,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupKeeper
         private float shakeDuration = 0.1f;
         [SerializeField] private Ease ease;
 
-        [SerializeField] private Text ballsText;
-        private uint keeBalls;
+        [SerializeField] private Text caughtBallsText;
+        private int caughtBalls;
 
         private void Start()
         {
@@ -37,13 +37,19 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupKeeper
         {
             if (other.TryGetComponent(out BallCollision ballCollision))
             {
-                
+                AddCaughtBall();
                 
                 isStart = false;
                 NightPool.Despawn(ballCollision.gameObject);
 
                 Shake();
             }
+        }
+
+        private void AddCaughtBall()
+        {
+            caughtBalls++;
+            caughtBallsText.text = caughtBalls.ToString();
         }
 
         private void Shake()
