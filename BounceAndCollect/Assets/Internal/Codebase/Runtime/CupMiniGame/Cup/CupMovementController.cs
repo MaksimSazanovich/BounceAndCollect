@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.Cup
 {
@@ -18,16 +19,22 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private bool canDrop = true;
         [SerializeField] private float rotateDuration;
         [SerializeField] private Ease ease;
+        private CupKeeper.CupKeeper cupKeeper;
 
+        [Inject]
+        private void Constructor(CupKeeper.CupKeeper cupKeeper)
+        {
+            this.cupKeeper = cupKeeper;
+        }
         private void Start()
         {
-            //canMove = true;
+            canMove = true;
             camera = Camera.main;
         }
 
         private void Update()
         {
-            if (Input.GetMouseButton(0) /* && canMove*/)
+            if (Input.GetMouseButton(0) && canMove)
             {
                 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
                 transform.position = new Vector3(mousePosition.x, transform.position.y, 0);
@@ -45,6 +52,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         {
             float x = Mathf.Clamp(transform.position.x, leftBoundary, rightBoundary);
             transform.position = new Vector3(x, transform.position.y, 0);
+        }
+
+        private void OnBecameInvisible()
+        {
+            canMove = false;
+            transform.eulerAngles = Vector3.zero;
+            transform.position = cupKeeper.transform.position;
         }
     }
 }
