@@ -5,6 +5,7 @@ using Internal.Codebase.Infrastructure.Factories.BallsFactory;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using Internal.Codebase.Runtime.CupMiniGame.Cup;
+using Internal.Codebase.Runtime.MetaGame.GameData;
 using Internal.Codebase.Runtime.Shop.Skins;
 using Internal.Codebase.Utilities.PositionOffsetCalculator;
 using ModestTree;
@@ -23,8 +24,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         
         [SerializeField] private List<Sprite> sprites = new();
         [SerializeField] private BallsSkins currentBallsSkin;
-        public uint SpawnedCount { get; private set; }
-        private int ballsOnStartMiniGame = 3;
+        public int SpawnedCount { get; private set; }
+        private int ballsOnStart = 3;
         [SerializeField] private float waitForSecondsRealtime = 0.1f;
         private float timeBetweenSpawnFirstBalls = 0.1f;
         private float spawnOffset = 0.1f;
@@ -35,27 +36,33 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         private SkinsResourceProvider skinsResourceProvider;
 
         public Action<int> OnCreatedBall;
+        private CupCatcher.CupCatcher cupCatcher;
 
         [Inject]
         public void Constructor(BallsFactory ballsFactory, Cup.Cup cup, CupDropController cupDropController,
-            SkinsResourceProvider skinsResourceProvider)
+            SkinsResourceProvider skinsResourceProvider, GameData gameData, CupCatcher.CupCatcher cupCatcher)
         {
+            this.cupCatcher = cupCatcher;
             this.skinsResourceProvider = skinsResourceProvider;
             this.cup = cup;
             this.ballsFactory = ballsFactory;
             this.cupDropController = cupDropController;
+
+            ballsOnStart = gameData.BallsOnStart;
         }
 
         private void OnEnable()
         {
             BallCollision.OnCollidedMultiplierX += CreateSecondBalls;
             cupDropController.OnDropped += Init;
+            cupCatcher.OnBallsEnded += SetBallsOnSecondHalf;
         }
 
         private void OnDisable()
         {
             BallCollision.OnCollidedMultiplierX -= CreateSecondBalls;
             cupDropController.OnDropped -= Init;
+            cupCatcher.OnBallsEnded -= SetBallsOnSecondHalf;
         }
 
         private void Start()
@@ -67,8 +74,11 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
                 CreateFirstBalls();
                 DespawnBalls();
             }
+        }
 
-            
+        private void SetBallsOnSecondHalf()
+        {
+            ballsOnStart = cupCatcher.CaughtBalls;
         }
 
         private void Init()
@@ -86,12 +96,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
 
         private IEnumerator CreateFirstBallsWithDelay()
         {
-            for (int i = 1; i <= ballsOnStartMiniGame; i++)
+            for (int i = 1; i <= ballsOnStart; i++)
             {
                 SpawnedCount++;
                 Balls.Add(ballsFactory.CreateBall(transform, cup.Neck.position,
                     sprites[Random.Range(0, sprites.Count)]));
-                OnCreatedBall?.Invoke(ballsOnStartMiniGame - i);
+                OnCreatedBall?.Invoke(ballsOnStart - i);
                 yield return new WaitForSeconds(timeBetweenSpawnFirstBalls);
             }
         }

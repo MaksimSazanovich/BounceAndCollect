@@ -21,11 +21,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private void OnEnable()
         {
             movementController.OnMouseDown += Push;
+            movementController.OnReplaced += Reset;
         }
 
         private void OnDisable()
         {
             movementController.OnMouseDown -= Push;
+            movementController.OnReplaced -= Reset;
         }
 
         private void Push()
@@ -33,12 +35,17 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
             if (canDrop)
                 StartCoroutine(DropTimer());
         }
-        
+
         private IEnumerator DropTimer()
         {
             canDrop = false;
             yield return new WaitForSeconds(timeBeforeDrop);
             OnDropped?.Invoke();
+        }
+
+        private void Reset()
+        {
+            canDrop = true;
         }
     }
 }

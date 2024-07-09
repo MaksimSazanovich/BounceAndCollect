@@ -26,13 +26,14 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Subtractor
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out BallCollision ball))
+            if (other.TryGetComponent(out BallCollision ball) && transform.position.y < other.transform.position.y)
             {
                 value += 1;
                 valueText.text = value.ToString();
-                if (value >= 0)
-                    Destroy(gameObject);
                 ball.Lock(this);
+                
+                if (value >= 0)
+                    gameObject.SetActive(false);
             }
         }
     }

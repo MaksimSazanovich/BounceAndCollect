@@ -16,6 +16,19 @@ namespace Internal.Codebase.Infrastructure.Factories.BallsFactory
         {
             this.resourceProvider = resourceProvider;
         }
+
+        public Ball CreateBall(Transform at, Vector3 postion, Sprite sprite)
+        {
+            var config = resourceProvider.LoadBallConfig();
+            
+            var ball = NightPool.Spawn(config.Ball, postion, Quaternion.identity, at);
+
+            ball.GetComponent<BallCollision>().ResetLockBoosterLineIDs();
+            ball.GetComponent<SpriteRenderer>().sprite = sprite;
+            
+            return ball;
+        }
+
         public Ball CreateBall(Transform at, Vector3 position, HashSet<int> lockBoosterLineIDs, Sprite sprite)
         {
             var config = resourceProvider.LoadBallConfig();
@@ -23,17 +36,6 @@ namespace Internal.Codebase.Infrastructure.Factories.BallsFactory
             var ball = NightPool.Spawn(config.Ball, position, Quaternion.identity, at);
             
             ball.GetComponent<BallCollision>().Constructor(lockBoosterLineIDs);
-            ball.GetComponent<SpriteRenderer>().sprite = sprite;
-            
-            return ball;
-        }
-
-        public Ball CreateBall(Transform at, Vector3 postion, Sprite sprite)
-        {
-            var config = resourceProvider.LoadBallConfig();
-            
-            var ball = NightPool.Spawn(config.Ball, postion, Quaternion.identity, at);
-            
             ball.GetComponent<SpriteRenderer>().sprite = sprite;
             
             return ball;

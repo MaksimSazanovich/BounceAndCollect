@@ -7,14 +7,14 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
     [DisallowMultipleComponent]
     public sealed class Ball : MonoBehaviour
     {
-        private void OnBecameInvisible()
+        /*private void OnBecameInvisible()
         {
             Deactivate();
         }
 
-        public void Deactivate()
+        private void Deactivate()
         {
             NightPool.Despawn(gameObject);
-        }
+        }*/
     }
 }

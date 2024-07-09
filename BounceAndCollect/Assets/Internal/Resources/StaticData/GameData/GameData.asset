@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: 
   <LevelTemplatesCount>k__BackingField: 12
+  <BallsOnStart>k__BackingField: 3

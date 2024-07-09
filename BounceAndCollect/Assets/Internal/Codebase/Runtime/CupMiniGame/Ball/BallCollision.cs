@@ -30,20 +30,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Ball
             LockBoosterLineIDs = new HashSet<int>(lockBoosterLineIDs);
         }
 
-
-        public void LockMultiplierX(MultiplierX multiplierX)
+        public void ResetLockBoosterLineIDs()
         {
-            multiplierX.GetComponent<BoosterLineCollision>().TriggerEnter2D(this);
-            LockBoosterLineIDs.Add(multiplierX.ID);
-            OnCollidedMultiplierX?.Invoke(multiplierX.Value - 1, new HashSet<int>(LockBoosterLineIDs),
-                transform.position);
-        }
-
-        public void LockPusherUpID(PusherUp pusherUp)
-        {
-            pusherUp.GetComponent<BoosterLineCollision>().TriggerEnter2D(this);
             LockBoosterLineIDs.Clear();
-            LockBoosterLineIDs.Add(pusherUp.ID);
         }
 
         public void Lock(BoosterLine boosterLine)

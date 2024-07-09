@@ -11,6 +11,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CameraMovement
         [SerializeField] private float duration;
         [SerializeField] private Ease ease;
         private GameEventsInvoker gameEventsInvoker;
+        private int endValue = -10;
 
         [Inject]
         private void Constructor(GameEventsInvoker gameEventsInvoker)
@@ -30,7 +31,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CameraMovement
 
         private void MoveToSecondHalf()
         {
-            transform.DOMoveY(-10, duration).SetEase(ease);
+            transform.DOMoveY(endValue, duration).SetEase(ease);
         }
     }
 }

@@ -13,21 +13,25 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private BallsSpawner ballsSpawner;
         [field: SerializeField] public Transform Neck { get; private set; }
         [SerializeField] private Text ballsText;
+        private CupCatcher.CupCatcher cupCatcher;
 
         [Inject]
-        private void Constructor(BallsSpawner ballsSpawner)
+        private void Constructor(BallsSpawner ballsSpawner, CupCatcher.CupCatcher cupCatcher)
         {
+            this.cupCatcher = cupCatcher;
             this.ballsSpawner = ballsSpawner;
         }
 
         private void OnEnable()
         {
             ballsSpawner.OnCreatedBall += ChangeText;
+            cupCatcher.OnBallsEnded += () => ChangeText(cupCatcher.CaughtBalls);
         }
 
         private void OnDisable()
         {
             ballsSpawner.OnCreatedBall -= ChangeText;
+            cupCatcher.OnBallsEnded -= () => ChangeText(cupCatcher.CaughtBalls);
         }
 
         private void ChangeText(int count)

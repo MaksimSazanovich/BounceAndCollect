@@ -8,7 +8,7 @@ namespace Internal.Codebase.Runtime.MetaGame.ScoreCollector
 {
     public sealed class ScoreCollector : MonoBehaviour
     {
-        private uint score;
+        private int score;
         
         private BallsSpawner ballsSpawner;
         private GameEventsInvoker gameEventsInvoker;

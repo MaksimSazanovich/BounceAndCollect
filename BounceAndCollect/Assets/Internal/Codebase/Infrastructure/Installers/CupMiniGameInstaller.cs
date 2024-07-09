@@ -14,14 +14,16 @@ namespace Internal.Codebase.Infrastructure.Installers
         [SerializeField] private BallsSpawner ballsSpawner;
         [SerializeField] private Cup cup;
         [SerializeField] private CupDropController cupDropController;
-        [FormerlySerializedAs("cupCathcer")] [SerializeField] private CupCatcher cupCatcher;
+        [SerializeField] private CupCatcher cupCatcher;
         [SerializeField] private GameEventsInvoker gameEventsInvoker;
+        [SerializeField] private CupMovementController cupMovementController;
 
         public override void InstallBindings()
         {
             Container.Bind<BallsSpawner>().FromInstance(ballsSpawner).AsSingle();
             Container.Bind<Cup>().FromInstance(cup).AsSingle();
             Container.Bind<CupDropController>().FromInstance(cupDropController).AsSingle();
+            Container.Bind<CupMovementController>().FromInstance(cupMovementController).AsSingle();
             Container.Bind<CupCatcher>().FromInstance(cupCatcher).AsSingle();
             Container.Bind<GameEventsInvoker>().FromInstance(gameEventsInvoker).AsSingle();
         }

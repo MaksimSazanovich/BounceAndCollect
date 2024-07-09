@@ -36,7 +36,6 @@ namespace Internal.Codebase.Infrastructure.Factories.BoosterLinesFactory
 
         public Subtractor CreateSubtractor(Vector2 size, Transform transform, Transform parent)
         {
-            Debug.Log(transform.localScale);
             var config = boosterLinesResourceProvider.LoadSubtractorConfig();
             
             var subtractor = container.InstantiatePrefab(config.Subtractor, transform.position, Quaternion.identity, parent);
