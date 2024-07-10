@@ -1,7 +1,7 @@
+using Internal.Codebase.Infrastructure.UI.LoadingCurtain;
 using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
 using Internal.Codebase.Runtime.MetaGame.GameData;
 using Internal.Codebase.Runtime.MetaGame.Shop;
-using Internal.Codebase.Runtime.UI.MainUI.LoadingCurtain;
 using UnityEngine;
 using Zenject;
 

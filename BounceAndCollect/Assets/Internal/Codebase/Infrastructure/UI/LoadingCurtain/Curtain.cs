@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.UI.MainUI.LoadingCurtain
+namespace Internal.Codebase.Infrastructure.UI.LoadingCurtain
 {
     [DisallowMultipleComponent]
     public sealed class Curtain : MonoBehaviour

@@ -1,9 +1,10 @@
 using System;
 using Internal.Codebase.Infrastructure.Factories.LevelTemplatesFactory;
+using Internal.Codebase.Runtime.CupMiniGame.Cup;
+using Internal.Codebase.Runtime.CupMiniGame.LevelTemplate;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using UnityEngine;
 using Zenject;
-using Types = Internal.Codebase.Runtime.CupMiniGame.LevelTemplate.Types;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
 {
@@ -12,23 +13,39 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
     {
         private GameEventsInvoker gameEventsInvoker;
         private LevelTemplateFactory levelTemplateFactory;
-        private Vector3 secondHalfPosition = new(0,-10);
+        private Vector3 secondHalfPosition = new(0, -10);
+        private CupMovementController cupMovementController;
+
+        [field: SerializeField] public LevelParts CurrentPart { get; private set; }
 
         [Inject]
-        private void Constructor(GameEventsInvoker gameEventsInvoker, LevelTemplateFactory levelTemplateFactory)
+        private void Constructor(GameEventsInvoker gameEventsInvoker, LevelTemplateFactory levelTemplateFactory,
+            CupMovementController cupMovementController)
         {
+            this.cupMovementController = cupMovementController;
             this.levelTemplateFactory = levelTemplateFactory;
             this.gameEventsInvoker = gameEventsInvoker;
         }
 
+        private void Start()
+        {
+            CurrentPart = LevelParts.First;
+        }
+
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += () => levelTemplateFactory.CreateLevel(Types.Second, secondHalfPosition, transform);
+            gameEventsInvoker.OnEnded += () =>
+                levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
+
+            cupMovementController.OnReplaced += () => CurrentPart = LevelParts.Second;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= () => levelTemplateFactory.CreateLevel(Types.Second, secondHalfPosition, transform);
+            gameEventsInvoker.OnEnded -= () =>
+                levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
+            
+            cupMovementController.OnReplaced -= () => CurrentPart = LevelParts.Second;
         }
     }
 }

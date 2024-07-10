@@ -12,7 +12,7 @@ using Zenject;
 namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
 {
     [DisallowMultipleComponent]
-    public sealed class CupCatcher : MonoBehaviour
+    public sealed class CupCatcher : Cathcer
     {
         public Action OnBallsEnded;
         [SerializeField] private Vector2 point;
@@ -26,16 +26,10 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
         private float startPositionY;
         private float shakeDuration = 0.1f;
         [SerializeField] private Ease ease;
-
-        [SerializeField] private Text caughtBallsText;
-        public int CaughtBalls { get; private set; }
-
-        private Vector3 endPosition = new(0, -14.2f);
+        
         private CupMovementController cupMovementController;
         private BallsSpawner ballsSpawner;
-
-        [SerializeField] private ParticleSystem particle;
-
+        
         [Inject]
         private void Constructor(CupMovementController cupMovementController, BallsSpawner ballsSpawner)
         {
@@ -45,12 +39,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
 
         private void OnEnable()
         {
-            cupMovementController.OnStartedReplace += Replace;
+            cupMovementController.OnStartedReplace += Deactivate;
         }
 
         private void OnDisable()
         {
-            cupMovementController.OnStartedReplace -= Replace;
+            cupMovementController.OnStartedReplace -= Deactivate;
         }
 
         private void Start()
@@ -58,24 +52,21 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
             Reset();
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        protected override void OnTriggerEnter2D(Collider2D other)
         {
+            base.OnTriggerEnter2D(other);
             if (other.TryGetComponent(out BallCollision ballCollision))
             {
-                AddCaughtBall();
-                
-                particle.Play();
-                
-                isStart = false;
                 NightPool.Despawn(ballCollision.gameObject);
-
+                isStart = false;
+                particle.Play();
                 Shake();
             }
         }
 
-        private void AddCaughtBall()
+        protected override void AddCaughtBall()
         {
-            CaughtBalls++;
+            base.AddCaughtBall();
             caughtBallsText.text = CaughtBalls.ToString();
         }
 
@@ -108,10 +99,10 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
             }
         }
 
-        private void Replace()
+        private void Deactivate()
         {
-            transform.position = endPosition;
             Reset();
+            gameObject.SetActive(false);
         }
 
         private void Reset()
@@ -122,12 +113,14 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
             ResetCaughtBalls();
         }
 
-        private void ResetCaughtBalls()
-        {
-            CaughtBalls = 0;
-            caughtBallsText.text = CaughtBalls.ToString();
-        }
 
+        protected override void ResetCaughtBalls()
+        {
+            base.ResetCaughtBalls();
+            caughtBallsText.text = CaughtBalls.ToString();
+
+        }
+        
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawCube(point, size);

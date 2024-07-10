@@ -1,5 +1,5 @@
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
-using Internal.Codebase.Runtime.UI.MainUI.LoadingCurtain;
+using Internal.Codebase.Infrastructure.UI.LoadingCurtain;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;

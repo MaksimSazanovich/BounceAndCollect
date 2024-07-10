@@ -2,7 +2,6 @@ using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.CupMiniGame.LevelTemplate;
 using UnityEngine;
 using Zenject;
-using Types = Internal.Codebase.Runtime.CupMiniGame.LevelTemplate.Types;
 
 namespace Internal.Codebase.Infrastructure.Factories.LevelTemplatesFactory
 {
@@ -18,7 +17,7 @@ namespace Internal.Codebase.Infrastructure.Factories.LevelTemplatesFactory
             this.resourceProvider = resourceProvider;
         }
         
-        public LevelTemplate CreateLevel(Types type, Vector3 position, Transform parent)
+        public LevelTemplate CreateLevel(LevelTemplateTypes levelTemplateType, Vector3 position, Transform parent)
         {
             var resource = resourceProvider.LoadRandomTemplate();
             var levelTemplate = container.InstantiatePrefab(resource, position, Quaternion.identity, parent).GetComponent<LevelTemplate>();
@@ -27,7 +26,7 @@ namespace Internal.Codebase.Infrastructure.Factories.LevelTemplatesFactory
             {
                 levelTemplate.Flip();
             }
-            if(type == Types.Second)
+            if(levelTemplateType == LevelTemplateTypes.Second)
                 levelTemplate.SetSecondType();
             return levelTemplate;
         }

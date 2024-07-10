@@ -1,8 +1,8 @@
 using System;
 using Internal.Codebase.Infrastructure.Factories.LevelTemplatesFactory;
+using Internal.Codebase.Runtime.CupMiniGame.LevelTemplate;
 using UnityEngine;
 using Zenject;
-using Types = Internal.Codebase.Runtime.CupMiniGame.LevelTemplate.Types;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.Logic
 {
@@ -19,7 +19,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic
 
         private void Start()
         {
-            levelTemplateFactory.CreateLevel(Types.First, Vector3.zero,transform);
+            levelTemplateFactory.CreateLevel(LevelTemplateTypes.First, Vector3.zero,transform);
         }
     }
 }

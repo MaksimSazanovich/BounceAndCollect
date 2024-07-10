@@ -1,6 +1,6 @@
 namespace Internal.Codebase.Runtime.CupMiniGame.LevelTemplate
 {
-    public enum Types
+    public enum LevelTemplateTypes
     {
         First = 1,
         Second = 2

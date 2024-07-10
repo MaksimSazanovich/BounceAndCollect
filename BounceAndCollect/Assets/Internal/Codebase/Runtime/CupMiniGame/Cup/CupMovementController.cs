@@ -1,7 +1,7 @@
 using System;
 using DG.Tweening;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.Cup
@@ -29,10 +29,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         [SerializeField] private Ease replaceEase;
         public Action OnReplaced;
         public Action OnStartedReplace;
+        private LevelsController levelsController;
 
         [Inject]
-        private void Constructor(CupCatcher.CupCatcher cupCatcher)
+        private void Constructor(CupCatcher.CupCatcher cupCatcher, LevelsController levelsController)
         {
+            this.levelsController = levelsController;
             this.cupCatcher = cupCatcher;
         }
 
@@ -67,16 +69,19 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
 
         private void OnBecameInvisible()
         {
-            float endValue = transform.position.y - replaceOffset;
+            if (levelsController.CurrentPart == LevelParts.First)
+            {
+                float endValue = transform.position.y - replaceOffset;
             
-            OnStartedReplace?.Invoke();
+                OnStartedReplace?.Invoke();
             
-            canMove = false;
-            transform.eulerAngles = Vector3.zero;
-            transform.position = cupCatcherPosition;
+                canMove = false;
+                transform.eulerAngles = Vector3.zero;
+                transform.position = cupCatcherPosition;
 
-            transform.DOMoveY(endValue, replaceDuration).SetEase(replaceEase).OnComplete(() => canMove = true);
-            OnReplaced?.Invoke();
+                transform.DOMoveY(endValue, replaceDuration).SetEase(replaceEase).OnComplete(() => canMove = true);
+                OnReplaced?.Invoke();
+            }
         }
     }
 }
