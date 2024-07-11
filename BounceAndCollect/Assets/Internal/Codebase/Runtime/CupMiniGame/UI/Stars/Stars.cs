@@ -50,7 +50,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
             {
                 int i = glassCupCatcher.CaughtBalls / 100;
                 StartCoroutine(ShowGlow(starsPositions[i]));
-                stars[i].GetComponent<UIShakeAnimation>().Animate();
+                stars[i].GetComponent<UIShakeAnimation>().Play();
                 PlayParticle(starsPositions[i]);
                 stars[i].color = Color.yellow;
             }
