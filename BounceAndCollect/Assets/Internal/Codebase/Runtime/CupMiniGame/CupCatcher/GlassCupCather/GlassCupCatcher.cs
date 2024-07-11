@@ -12,14 +12,16 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         public Action OnOffsetReplaced;
         public Action OnAddedCaughtBall;
         
-        private Collider2D collider2D;
         private float offset = 0.052f;
 
         [SerializeField] private GameObject glassCup;
+        [SerializeField] private ParticleSystem explosion;
+        private BoxCollider2D boxCollider2D;
+        private float boxCollider2DEndPos = 1.1f;
         
         private void Start()
         {
-            collider2D = GetComponent<Collider2D>();
+            boxCollider2D = GetComponent<BoxCollider2D>();
         }
 
         protected override void OnTriggerEnter2D(Collider2D other)
@@ -27,7 +29,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
             base.OnTriggerEnter2D(other);
             if (other.TryGetComponent(out BallCollision ballCollision))
             {
-                if (CaughtBalls <= 200)
+                if (CaughtBalls < 200)
                 {
                     if (CaughtBalls <= 50)
                     {
@@ -36,14 +38,14 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
                     }
                     else
                     {
-                        collider2D.enabled = false;
-                        collider2D.enabled = true;
+                        boxCollider2D.enabled = false;
+                        boxCollider2D.enabled = true;
                         NightPool.Despawn(ballCollision.gameObject);
                     }
 
                     particle.Play();
                 }
-                else
+                else if(CaughtBalls == 200)
                 {
                     OnOverflowed?.Invoke();
                     Explode();
@@ -61,7 +63,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
 
         private void Explode()
         {
+            explosion.Play();
             glassCup.SetActive(false);
+            boxCollider2D.offset = new(boxCollider2D.offset.x, boxCollider2DEndPos);
         }
     }
 }

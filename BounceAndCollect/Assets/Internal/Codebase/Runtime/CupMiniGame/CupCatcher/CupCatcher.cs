@@ -6,7 +6,6 @@ using Internal.Codebase.Runtime.CupMiniGame.BallSpawner;
 using Internal.Codebase.Runtime.CupMiniGame.Cup;
 using NTC.Pool;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
