@@ -14,7 +14,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BoosterLines
         public void TriggerEnter2D(BallCollision ballCollision)
         {
             if(!ballCollision.LockBoosterLineIDs.Contains(boosterLine.ID))
-                uiShakeAnimation.Animate();
+                uiShakeAnimation.Play();
         }
     }
 }

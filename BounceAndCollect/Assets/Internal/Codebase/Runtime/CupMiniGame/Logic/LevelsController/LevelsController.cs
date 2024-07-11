@@ -16,6 +16,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
         private Vector3 secondHalfPosition = new(0, -10);
         private CupMovementController cupMovementController;
 
+        public Action<LevelParts> OnChangePart; 
+
         [field: SerializeField] public LevelParts CurrentPart { get; private set; }
 
         [Inject]
@@ -37,15 +39,21 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
             gameEventsInvoker.OnEnded += () =>
                 levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
 
-            cupMovementController.OnReplaced += () => CurrentPart = LevelParts.Second;
+            cupMovementController.OnReplaced += SetSecondPart;
         }
 
         private void OnDisable()
         {
             gameEventsInvoker.OnEnded -= () =>
                 levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
-            
-            cupMovementController.OnReplaced -= () => CurrentPart = LevelParts.Second;
+
+            cupMovementController.OnReplaced -= SetSecondPart;
+        }
+
+        private void SetSecondPart()
+        {
+            CurrentPart = LevelParts.Second;
+            OnChangePart?.Invoke(CurrentPart);
         }
     }
 }

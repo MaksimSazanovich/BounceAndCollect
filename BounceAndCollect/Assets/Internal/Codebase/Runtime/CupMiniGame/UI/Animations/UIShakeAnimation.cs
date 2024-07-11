@@ -16,7 +16,7 @@ namespace Internal.Codebase.Runtime.UI.Animations
         private Tween tween;
 
         [Button]
-        public void Animate()
+        public void Play()
         {
             tween = rectTransform.DOScale(endScale, duration).SetEase(ease)
                 .OnComplete(() => rectTransform.DOScale(startScale, duration).SetEase(ease));

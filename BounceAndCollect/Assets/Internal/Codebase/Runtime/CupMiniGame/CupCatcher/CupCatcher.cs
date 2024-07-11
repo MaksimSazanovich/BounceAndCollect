@@ -13,12 +13,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
     [DisallowMultipleComponent]
     public sealed class CupCatcher : Cathcer
     {
-        public Action OnBallsEnded;
-        [SerializeField] private Vector2 point;
-        [SerializeField] private Vector2 size;
-        [SerializeField] private LayerMask layer;
-        private bool isStart = true;
-        private bool isEnd;
+
+        
 
         private float shakeOffset = 0.1f;
         private float shakePositionY;
@@ -27,12 +23,17 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
         [SerializeField] private Ease ease;
         
         private CupMovementController cupMovementController;
-        private BallsSpawner ballsSpawner;
-        
+
+
         [Inject]
-        private void Constructor(CupMovementController cupMovementController, BallsSpawner ballsSpawner)
+        protected override void Constructor(BallsSpawner ballsSpawner)
         {
-            this.ballsSpawner = ballsSpawner;
+            base.Constructor(ballsSpawner);
+        }
+
+        [Inject]
+        void Constructor(CupMovementController cupMovementController)
+        {
             this.cupMovementController = cupMovementController;
         }
 
@@ -48,6 +49,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
 
         private void Start()
         {
+            timeBeforeEnd = 3;
             Reset();
         }
 
@@ -62,7 +64,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
                 Shake();
             }
         }
-
+        
         protected override void AddCaughtBall()
         {
             base.AddCaughtBall();
@@ -74,29 +76,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
             transform.DOMoveY(shakePositionY, shakeDuration).SetEase(ease)
                 .OnComplete(() => transform.DOMoveY(startPositionY, shakeDuration).SetEase(ease));
         }
-
-        private void Update()
-        {
-            if (isStart == false && isEnd == false)
-            {
-                Collider2D[] balls = Physics2D.OverlapBoxAll(point, size, 0, layer);
-                if (balls.Length == 0)
-                {
-                    StartCoroutine(Timer(balls));
-                }
-            }
-        }
-
-        private IEnumerator Timer(Collider2D[] balls)
-        {
-            yield return new WaitForSeconds(3);
-            if (balls.Length == 0 && isEnd == false)
-            {
-                isEnd = true;
-                caughtBallsText.text = ballsSpawner.SpawnedCount.ToString();
-                OnBallsEnded?.Invoke();
-            }
-        }
+        
 
         private void Deactivate()
         {
@@ -118,11 +98,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
             base.ResetCaughtBalls();
             caughtBallsText.text = CaughtBalls.ToString();
 
-        }
-        
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.DrawCube(point, size);
         }
     }
 }

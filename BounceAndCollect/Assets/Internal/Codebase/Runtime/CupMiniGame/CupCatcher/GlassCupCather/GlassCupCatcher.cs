@@ -1,7 +1,9 @@
 using System;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController;
 using NTC.Pool;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
 {
@@ -18,15 +20,33 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         [SerializeField] private ParticleSystem explosion;
         private BoxCollider2D boxCollider2D;
         private float boxCollider2DEndPos = 1.1f;
-        
+        private LevelsController levelsController;
+
+        [Inject]
+        private void Constructor(LevelsController levelsController)
+        {
+            this.levelsController = levelsController;
+        }
+        private void OnEnable()
+        {
+            levelsController.OnChangePart += Reset;
+        }
+
+        private void OnDisable()
+        {
+            levelsController.OnChangePart -= Reset;
+        }
+
         private void Start()
         {
             boxCollider2D = GetComponent<BoxCollider2D>();
+            timeBeforeEnd = 1;
         }
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
             base.OnTriggerEnter2D(other);
+            isStart = false;
             if (other.TryGetComponent(out BallCollision ballCollision))
             {
                 if (CaughtBalls < 200)
@@ -38,6 +58,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
                     }
                     else
                     {
+                        boxCollider2D.offset = new(boxCollider2D.offset.x, boxCollider2DEndPos);
                         boxCollider2D.enabled = false;
                         boxCollider2D.enabled = true;
                         NightPool.Despawn(ballCollision.gameObject);
@@ -65,7 +86,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         {
             explosion.Play();
             glassCup.SetActive(false);
-            boxCollider2D.offset = new(boxCollider2D.offset.x, boxCollider2DEndPos);
+        }
+
+        private void Reset(LevelParts obj)
+        {
+            isStart = true;
+            isEnd = false;
         }
     }
 }
