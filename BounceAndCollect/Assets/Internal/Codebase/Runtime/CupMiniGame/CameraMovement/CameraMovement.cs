@@ -26,13 +26,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CameraMovement
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += MoveToSecondPart;
+            gameEventsInvoker.OnEndedPart += MoveToSecondPart;
             glassCupCatcher.OnOffsetReplaced += MoveToFloor;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= MoveToSecondPart;
+            gameEventsInvoker.OnEndedPart -= MoveToSecondPart;
             glassCupCatcher.OnOffsetReplaced -= MoveToFloor;
         }
 

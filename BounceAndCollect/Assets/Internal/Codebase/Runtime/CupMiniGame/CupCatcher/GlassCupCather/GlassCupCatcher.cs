@@ -40,7 +40,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         private void Start()
         {
             boxCollider2D = GetComponent<BoxCollider2D>();
-            timeBeforeEnd = 1;
+            timeBeforeEnd = 3;
         }
 
         protected override void OnTriggerEnter2D(Collider2D other)

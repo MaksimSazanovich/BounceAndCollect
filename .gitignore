@@ -682,3 +682,4 @@ Temporary Items
 *.meta
 /BounceAndCollect/Recordings
 /BounceAndCollect/Assets/Internal/\[COMMON\]/Sprites
+/BounceAndCollect/Assets/External/Editor/HelpSprites

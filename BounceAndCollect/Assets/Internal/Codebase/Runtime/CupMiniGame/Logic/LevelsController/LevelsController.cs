@@ -36,7 +36,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += () =>
+            gameEventsInvoker.OnEndedPart += () =>
                 levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
 
             cupMovementController.OnReplaced += SetSecondPart;
@@ -44,7 +44,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= () =>
+            gameEventsInvoker.OnEndedPart -= () =>
                 levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
 
             cupMovementController.OnReplaced -= SetSecondPart;

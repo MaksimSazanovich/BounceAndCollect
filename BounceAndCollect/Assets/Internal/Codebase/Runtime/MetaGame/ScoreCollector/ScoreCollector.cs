@@ -1,4 +1,3 @@
-using System;
 using Internal.Codebase.Runtime.CupMiniGame.BallSpawner;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using UnityEngine;
@@ -22,12 +21,12 @@ namespace Internal.Codebase.Runtime.MetaGame.ScoreCollector
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += AddScore;
+            gameEventsInvoker.OnEndedPart += AddScore;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= AddScore;
+            gameEventsInvoker.OnEndedPart -= AddScore;
         }
 
         private void AddScore()
