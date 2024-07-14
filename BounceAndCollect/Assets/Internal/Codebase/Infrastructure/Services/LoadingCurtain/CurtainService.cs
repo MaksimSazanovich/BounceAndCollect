@@ -18,9 +18,9 @@ namespace Internal.Codebase.Infrastructure.Services.LoadingCurtain
             curtain = mainUIFactory.CreateCurtain();
 
         public void ShowCurtain(bool isAnimated, Action callback = null) =>
-            curtain.ShowCurtain(isAnimated, callback);
+            curtain.Show(isAnimated, callback);
 
         public void HideCurtain(float startDelay, Action callback = null) =>
-            curtain.HideCurtain(startDelay, callback);
+            curtain.Hide(startDelay, callback);
     }
 }

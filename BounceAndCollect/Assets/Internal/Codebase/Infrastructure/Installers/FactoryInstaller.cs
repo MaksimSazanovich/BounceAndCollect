@@ -13,6 +13,8 @@ namespace Internal.Codebase.Infrastructure.Installers
         public override void InstallBindings()
         {
             Container.Bind<MainUIFactory>().AsSingle().NonLazy();
+            Container.Bind<GameUIFactory.GameUIFactory>().AsSingle().NonLazy();
+                
             Container.Bind<BallsFactory>().AsSingle().NonLazy();
             Container.Bind<BoosterLinesFactory>().AsSingle().NonLazy();
             Container.Bind<LevelTemplateFactory>().AsSingle().NonLazy();

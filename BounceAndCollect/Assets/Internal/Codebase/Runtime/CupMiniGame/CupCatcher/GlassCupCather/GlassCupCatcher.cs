@@ -13,6 +13,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         public Action OnOverflowed;
         public Action OnOffsetReplaced;
         public Action OnAddedCaughtBall;
+        public Action OnAroundCaughtBalls;
         
         private float offset = 0.052f;
 
@@ -22,6 +23,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         private float boxCollider2DEndPos = 1.1f;
         private LevelsController levelsController;
 
+        public static GlassCupCatcher Instance = null;
+        
         [Inject]
         private void Constructor(LevelsController levelsController)
         {
@@ -39,6 +42,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
 
         private void Start()
         {
+            if (Instance == null)
+                Instance = this;
+            else if(Instance == this)
+                Destroy(gameObject);
+            
+            DontDestroyOnLoad(gameObject);
+            
             boxCollider2D = GetComponent<BoxCollider2D>();
             timeBeforeEnd = 3;
         }
@@ -80,6 +90,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         {
             base.AddCaughtBall();
             OnAddedCaughtBall?.Invoke();
+            
+            if(CaughtBalls % 42 == 0)
+                OnAroundCaughtBalls?.Invoke();
         }
 
         private void Explode()

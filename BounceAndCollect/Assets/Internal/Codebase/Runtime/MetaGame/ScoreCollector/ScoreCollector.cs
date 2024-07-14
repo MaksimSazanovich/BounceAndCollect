@@ -1,3 +1,4 @@
+using System;
 using Internal.Codebase.Runtime.CupMiniGame.BallSpawner;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using UnityEngine;
@@ -8,15 +9,23 @@ namespace Internal.Codebase.Runtime.MetaGame.ScoreCollector
     public sealed class ScoreCollector : MonoBehaviour
     {
         private int score;
+        private int levelScore;
         
         private BallsSpawner ballsSpawner;
         private GameEventsInvoker gameEventsInvoker;
-
+        
         [Inject]
         private void Constructor(BallsSpawner ballsSpawner, GameEventsInvoker gameEventsInvoker)
         {
             this.gameEventsInvoker = gameEventsInvoker;
             this.ballsSpawner = ballsSpawner;
+        }
+
+        private void Start()
+        {
+     
+            
+            levelScore = 0;
         }
 
         private void OnEnable()
@@ -31,7 +40,12 @@ namespace Internal.Codebase.Runtime.MetaGame.ScoreCollector
 
         private void AddScore()
         {
-            score += ballsSpawner.SpawnedCount;
+            levelScore += ballsSpawner.SpawnedCount;
+            
+            
+            
+            score += levelScore;
+            levelScore = 0;
         }
     }
 }

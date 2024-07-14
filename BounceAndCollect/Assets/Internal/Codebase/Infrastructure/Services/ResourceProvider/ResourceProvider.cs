@@ -1,6 +1,7 @@
 using Internal.Codebase.Infrastructure.Constants;
 using Internal.Codebase.Infrastructure.UI.LoadingCurtain;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
+using Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer;
 using UnityEngine;
 
 namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
@@ -9,6 +10,7 @@ namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
     {
         private CurtainConfig curtainConfig;
         private BallConfig ballConfig;
+        private SpeedometerConfig speedometerConfig;
 
         public CurtainConfig LoadCurtainConfig()
         {
@@ -22,6 +24,13 @@ namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
             if (ballConfig == null)
                 ballConfig = Resources.Load<BallConfig>(AssetPath.BallConfig);
             return ballConfig;
+        }
+        
+        public SpeedometerConfig LoadSpeedometerConfig()
+        {
+            if (speedometerConfig == null)
+                speedometerConfig = Resources.Load<SpeedometerConfig>(AssetPath.SpeedometerConfig);
+            return speedometerConfig;
         }
 
         public void UnloadAsset(Object asset) => Resources.UnloadAsset(asset);

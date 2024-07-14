@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
 using Internal.Codebase.Runtime.UI.Animations;
@@ -17,6 +18,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
         [SerializeField] private GameObject glow;
         [SerializeField] private ParticleSystem particle;
         private float glowTime = 0.1f;
+
+        public Action OnFilled; 
 
         [Inject]
         private void Constructor(GlassCupCatcher glassCupCatcher)
@@ -53,6 +56,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
                 stars[i].GetComponent<UIShakeAnimation>().Play();
                 PlayParticle(starsPositions[i]);
                 stars[i].color = Color.yellow;
+                
+                if(glassCupCatcher.CaughtBalls == 200)
+                    OnFilled?.Invoke();
             }
             
             if (glassCupCatcher.CaughtBalls <= 50)
@@ -69,8 +75,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
 
             if (glassCupCatcher.CaughtBalls <= 200)
                 stars[2].fillAmount += starsFillAmount;
-
-           
         }
         
         private IEnumerator ShowGlow(Vector3 starPosition)

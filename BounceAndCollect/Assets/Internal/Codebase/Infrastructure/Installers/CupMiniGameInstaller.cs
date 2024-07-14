@@ -4,8 +4,11 @@ using Internal.Codebase.Runtime.CupMiniGame.CupCatcher;
 using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController;
+using Internal.Codebase.Runtime.CupMiniGame.UI.Stars;
+using Internal.Codebase.Runtime.MetaGame.ScoreCollector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.SocialPlatforms.Impl;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Installers
@@ -21,6 +24,8 @@ namespace Internal.Codebase.Infrastructure.Installers
         [SerializeField] private GameEventsInvoker gameEventsInvoker;
         [SerializeField] private CupMovementController cupMovementController;
         [SerializeField] private LevelsController levelsController;
+        [SerializeField] private Stars stars;
+        [SerializeField] private ScoreCollector scoreCollector;
 
         public override void InstallBindings()
         {
@@ -31,9 +36,12 @@ namespace Internal.Codebase.Infrastructure.Installers
 
             Container.Bind<LevelsController>().FromInstance(levelsController).AsSingle();
             Container.Bind<GameEventsInvoker>().FromInstance(gameEventsInvoker).AsSingle();
+            Container.Bind<ScoreCollector>().FromInstance(scoreCollector).AsSingle();
             
             Container.Bind<CupCatcher>().FromInstance(cupCatcher).AsSingle();
             Container.Bind<GlassCupCatcher>().FromInstance(glassCupCatcher).AsSingle();
+
+            Container.Bind<Stars>().FromInstance(stars).AsSingle();
         }
     }
 }

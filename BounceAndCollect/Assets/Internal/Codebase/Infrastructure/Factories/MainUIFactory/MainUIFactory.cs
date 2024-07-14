@@ -10,14 +10,12 @@ namespace Internal.Codebase.Infrastructure.Factories.MainUIFactory
     public sealed class MainUIFactory
     {
         private GameObject currentPefab;
-        private DiContainer container;
         private ResourceProvider resourceProvider;
         
         [Inject]
-        private void Construct(DiContainer container, ResourceProvider resourceProvider)
+        private void Construct(ResourceProvider resourceProvider)
         {
             this.resourceProvider = resourceProvider;
-            this.container = container;
         }
         
         public Curtain CreateCurtain()

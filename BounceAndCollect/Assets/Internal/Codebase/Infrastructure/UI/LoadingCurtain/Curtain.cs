@@ -16,7 +16,7 @@ namespace Internal.Codebase.Infrastructure.UI.LoadingCurtain
         private void Awake() =>
             DontDestroyOnLoad(this);
 
-        public void ShowCurtain(bool isAnimated, Action callback)
+        public void Show(bool isAnimated, Action callback)
         {
             canvasGroup.DOKill();
             gameObject.SetActive(true);
@@ -34,7 +34,7 @@ namespace Internal.Codebase.Infrastructure.UI.LoadingCurtain
                 .OnComplete(() => callback?.Invoke());
         }
 
-        public void HideCurtain(bool isAnimated, Action callback)
+        public void Hide(bool isAnimated, Action callback)
         {
             canvasGroup.DOKill();
 
@@ -55,7 +55,7 @@ namespace Internal.Codebase.Infrastructure.UI.LoadingCurtain
                 });
         }
 
-        public void HideCurtain(float startDelay, Action callback)
+        public void Hide(float startDelay, Action callback)
         {
             canvasGroup
                 .DOFade(0, animationDuration)

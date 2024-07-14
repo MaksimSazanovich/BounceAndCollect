@@ -1,5 +1,6 @@
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
+using Internal.Codebase.Infrastructure.Services.PercentSpeedometer;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<LevelTemplatesResourceProvider>().AsSingle().NonLazy();
             
             Container.Bind<CurtainService>().AsSingle().NonLazy();
+            Container.Bind<SpeedometerService>().AsSingle().NonLazy();
         }
     }
 }
