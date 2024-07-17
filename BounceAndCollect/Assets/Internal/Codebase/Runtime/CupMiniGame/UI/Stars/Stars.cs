@@ -18,6 +18,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
         [SerializeField] private GameObject glow;
         [SerializeField] private ParticleSystem particle;
         private float glowTime = 0.1f;
+        [field: SerializeField] public int StarsCount { get; private set; }
 
         public Action OnFilled; 
 
@@ -51,6 +52,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
         {
             if (glassCupCatcher.CaughtBalls is 50 or 150 or 200)
             {
+                StarsCount++;
                 int i = glassCupCatcher.CaughtBalls / 100;
                 StartCoroutine(ShowGlow(starsPositions[i]));
                 stars[i].GetComponent<UIShakeAnimation>().Play();
