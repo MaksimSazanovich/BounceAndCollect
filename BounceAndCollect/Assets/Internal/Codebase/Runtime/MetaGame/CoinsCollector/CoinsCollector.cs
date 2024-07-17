@@ -13,12 +13,12 @@ namespace Internal.Codebase.Runtime.MetaGame.CoinsCollector
 
         private void OnEnable()
         {
-            CoinParticle.OnFinished += AddCoin;
+            TweenParticle.OnFinished += AddCoin;
         }
 
         private void OnDisable()
         {
-            CoinParticle.OnFinished -= AddCoin;
+            TweenParticle.OnFinished -= AddCoin;
         }
 
         private void AddCoin()
