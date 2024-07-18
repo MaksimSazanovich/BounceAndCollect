@@ -2,28 +2,28 @@ using Internal.Codebase.Runtime.CupMiniGame.UI.Particles;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Internal.Codebase.Runtime.MetaGame.CoinsCollector
+namespace Internal.Codebase.Runtime.MetaGame.StarsCollector
 {
     [DisallowMultipleComponent]
-    public sealed class CoinsCollector : MonoBehaviour
+    public sealed class StarsCollector : MonoBehaviour
     {
-        private int coins;
+        private int stars;
         [SerializeField] private Text text;
 
         private void OnEnable()
         {
-            CoinParticle.OnFinished += AddCoin;
+            StarParticle.OnFinished += AddCoin;
         }
 
         private void OnDisable()
         {
-            CoinParticle.OnFinished -= AddCoin;
+            StarParticle.OnFinished -= AddCoin;
         }
 
         private void AddCoin()
         {
-            coins++;
-            text.text = coins.ToString();
+            stars++;
+            text.text = stars.ToString();
         }
     }
 }

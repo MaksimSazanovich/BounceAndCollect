@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 7055142}
   - component: {fileID: 7055145}
   - component: {fileID: 7055144}
-  - component: {fileID: 7055143}
+  - component: {fileID: 7055146}
   m_Layer: 0
   m_Name: StarParticleImage (1)
   m_TagString: Untagged
@@ -151,8 +151,8 @@ RectTransform:
   m_GameObject: {fileID: 7055141}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.33333328, y: 0.33333328, z: 0.33333328}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 253973356}
   m_Father: {fileID: 1198541600}
@@ -163,18 +163,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 22.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7055143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7055141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9ba43174014dcf8d08d8098d33c2f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7055144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,17 +522,17 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
+          time: 0.4987564
+          value: 1.0024109
+          inSlope: -2
+          outSlope: -2
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 1
-          value: 1
+          time: 0.9500122
+          value: 0.5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1500,7 +1488,7 @@ MonoBehaviour:
   _onParticleFinish:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7055143}
+      - m_Target: {fileID: 7055146}
         m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.TweenParticle,
           Assembly-CSharp
         m_MethodName: InvokeOnFinished
@@ -1547,6 +1535,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7055141}
   m_CullTransparentMesh: 1
+--- !u!114 &7055146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11679870d6a84ff29f979c52b64ddc2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &10537339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,6 +2973,7 @@ Transform:
   - {fileID: 596841620}
   - {fileID: 1669706794}
   - {fileID: 1674988446}
+  - {fileID: 974990857}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13365,7 +13366,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 924860968}
-        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.CoinParticle,
+        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.TweenParticle,
           Assembly-CSharp
         m_MethodName: InvokeOnFinished
         m_Mode: 1
@@ -13380,7 +13381,7 @@ MonoBehaviour:
       - m_Target: {fileID: 83208202}
         m_TargetAssemblyTypeName: Internal.Codebase.Runtime.UI.Animations.UIShakeAnimation,
           Assembly-CSharp
-        m_MethodName: Animate
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13420,9 +13421,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 924860964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9ba43174014dcf8d08d8098d33c2f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 57f99f834eed45d2ae8238241e7a693c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &974990856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 974990857}
+  - component: {fileID: 974990858}
+  m_Layer: 0
+  m_Name: StarsCollector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &974990857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974990856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 260266335}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &974990858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974990856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b05c1416cb439fba49cc40249bc152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 364613578}
 --- !u!1 &982160183
 GameObject:
   m_ObjectHideFlags: 0
@@ -13798,7 +13844,7 @@ GameObject:
   - component: {fileID: 1024031491}
   - component: {fileID: 1024031494}
   - component: {fileID: 1024031493}
-  - component: {fileID: 1024031492}
+  - component: {fileID: 1024031495}
   m_Layer: 0
   m_Name: StarParticleImage (1)
   m_TagString: Untagged
@@ -13815,8 +13861,8 @@ RectTransform:
   m_GameObject: {fileID: 1024031490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.33333328, y: 0.33333328, z: 0.33333328}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1566534166}
   m_Father: {fileID: 1090430490}
@@ -13827,18 +13873,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0000038146973, y: -2.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &1024031492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024031490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9ba43174014dcf8d08d8098d33c2f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1024031493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14198,17 +14232,17 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
+          time: 0.4987564
+          value: 1.0024109
+          inSlope: -2
+          outSlope: -2
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 1
-          value: 1
+          time: 0.9500122
+          value: 0.5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -15164,7 +15198,7 @@ MonoBehaviour:
   _onParticleFinish:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1024031492}
+      - m_Target: {fileID: 1024031495}
         m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.TweenParticle,
           Assembly-CSharp
         m_MethodName: InvokeOnFinished
@@ -15211,6 +15245,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024031490}
   m_CullTransparentMesh: 1
+--- !u!114 &1024031495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024031490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11679870d6a84ff29f979c52b64ddc2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1049134146
 GameObject:
   m_ObjectHideFlags: 0
@@ -16393,7 +16439,7 @@ GameObject:
   - component: {fileID: 1348846671}
   - component: {fileID: 1348846674}
   - component: {fileID: 1348846673}
-  - component: {fileID: 1348846672}
+  - component: {fileID: 1348846675}
   m_Layer: 0
   m_Name: StarParticleImage
   m_TagString: Untagged
@@ -16410,8 +16456,8 @@ RectTransform:
   m_GameObject: {fileID: 1348846670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3333333, y: 0.3333333, z: 0.3333333}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 650275584}
   m_Father: {fileID: 662337403}
@@ -16422,18 +16468,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0000038146973, y: 20.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1348846672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348846670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9ba43174014dcf8d08d8098d33c2f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1348846673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16793,17 +16827,17 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
+          time: 0.4987564
+          value: 1.0024109
+          inSlope: -2
+          outSlope: -2
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 1
-          value: 1
+          time: 0.9500122
+          value: 0.5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -17759,8 +17793,8 @@ MonoBehaviour:
   _onParticleFinish:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1348846672}
-        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.CoinParticle,
+      - m_Target: {fileID: 1348846675}
+        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.TweenParticle,
           Assembly-CSharp
         m_MethodName: InvokeOnFinished
         m_Mode: 1
@@ -17806,6 +17840,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348846670}
   m_CullTransparentMesh: 1
+--- !u!114 &1348846675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348846670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11679870d6a84ff29f979c52b64ddc2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1370145909
 GameObject:
   m_ObjectHideFlags: 0
@@ -25886,7 +25932,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1890112134}
-        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.CoinParticle,
+        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.CupMiniGame.UI.Particles.TweenParticle,
           Assembly-CSharp
         m_MethodName: InvokeOnFinished
         m_Mode: 1
@@ -25901,7 +25947,7 @@ MonoBehaviour:
       - m_Target: {fileID: 83208202}
         m_TargetAssemblyTypeName: Internal.Codebase.Runtime.UI.Animations.UIShakeAnimation,
           Assembly-CSharp
-        m_MethodName: Animate
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25941,7 +25987,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1890112130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9ba43174014dcf8d08d8098d33c2f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 57f99f834eed45d2ae8238241e7a693c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1968352400

@@ -13,9 +13,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
     [DisallowMultipleComponent]
     public sealed class CupCatcher : Cathcer
     {
-
-        
-
         private float shakeOffset = 0.1f;
         private float shakePositionY;
         private float startPositionY;

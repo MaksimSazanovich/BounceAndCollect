@@ -59,7 +59,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
             if (ballsInFinishArea.Length == 0 && isEnd == false)
             {
                 isEnd = true;
-                caughtBallsText.text = ballsSpawner.SpawnedCount.ToString();
+                //caughtBallsText.text = ballsSpawner.SpawnedCount.ToString();
                 OnBallsEnded?.Invoke();
                 Debug.Log(nameof(OnBallsEnded));
             }
