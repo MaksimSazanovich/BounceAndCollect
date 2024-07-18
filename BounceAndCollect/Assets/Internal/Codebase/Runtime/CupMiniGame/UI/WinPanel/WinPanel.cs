@@ -1,7 +1,6 @@
-using System;
+using System.Collections;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using UnityEngine;
-using UnityEngine.WSA;
 using Zenject;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel
@@ -20,16 +19,17 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += Activate;
+            gameEventsInvoker.OnEnded += () => StartCoroutine(Activate());
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= Activate;
+            gameEventsInvoker.OnEnded -= () => StartCoroutine(Activate());
         }
 
-        private void Activate()
+        private IEnumerator Activate()
         {
+            yield return new WaitForSeconds(1);
             winPanel.SetActive(true);
         }
     }

@@ -1,7 +1,7 @@
 using DG.Tweening;
 using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
-using Internal.Codebase.Runtime.MetaGame.ScoreCollector;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -24,6 +24,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
         private Ease ease;
         private Vector3 endScale;
         private GameEventsInvoker gameEventsInvoker;
+        private Vector3 rotationAngle = new(0, 0, -2.0857f);
 
         public void Constructor(int minValue, int maxValue, float animationDuration, Ease ease, Vector3 endScale)
         {
@@ -72,15 +73,15 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
 
         private void OnAroundCaughtBalls()
         {
-            if(percent == 100)
+            if (percent == 100)
                 return;
             RotateArrow();
             AddPercent();
         }
-
+        
         private void RotateArrow()
         {
-            arrow.Rotate(Vector3.back);
+            arrow.Rotate(rotationAngle);
         }
 
         private void AddPercent()

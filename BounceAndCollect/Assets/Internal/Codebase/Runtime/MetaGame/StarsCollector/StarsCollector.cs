@@ -12,15 +12,15 @@ namespace Internal.Codebase.Runtime.MetaGame.StarsCollector
 
         private void OnEnable()
         {
-            StarParticle.OnFinished += AddCoin;
+            StarParticle.OnFinished += AddStar;
         }
 
         private void OnDisable()
         {
-            StarParticle.OnFinished -= AddCoin;
+            StarParticle.OnFinished -= AddStar;
         }
 
-        private void AddCoin()
+        private void AddStar()
         {
             stars++;
             text.text = stars.ToString();

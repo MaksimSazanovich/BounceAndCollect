@@ -1,7 +1,15 @@
+using System;
+using UnityEngine;
+
 namespace Internal.Codebase.Runtime.CupMiniGame.UI.Particles
 {
-    public sealed class StarParticle : TweenParticle
+    public sealed class StarParticle : MonoBehaviour
     {
-        
+        public static Action OnFinished;
+
+        public void InvokeOnFinished()
+        {
+            OnFinished?.Invoke();
+        }
     }
 }

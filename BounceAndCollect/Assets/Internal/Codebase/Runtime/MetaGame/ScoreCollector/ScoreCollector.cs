@@ -1,5 +1,6 @@
 using System;
 using Internal.Codebase.Runtime.CupMiniGame.BallSpawner;
+using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using UnityEngine;
 using Zenject;
@@ -9,43 +10,47 @@ namespace Internal.Codebase.Runtime.MetaGame.ScoreCollector
     public sealed class ScoreCollector : MonoBehaviour
     {
         private int score;
-        private int levelScore;
+        public int LevelScore { get; private set; }
+        public int BestLevelScore { get; private set; }
         
-        private BallsSpawner ballsSpawner;
         private GameEventsInvoker gameEventsInvoker;
-        
+        private GlassCupCatcher glassCupCatcher;
+
         [Inject]
-        private void Constructor(BallsSpawner ballsSpawner, GameEventsInvoker gameEventsInvoker)
+        private void Constructor(GlassCupCatcher glassCupCatcher, GameEventsInvoker gameEventsInvoker)
         {
+            this.glassCupCatcher = glassCupCatcher;
             this.gameEventsInvoker = gameEventsInvoker;
-            this.ballsSpawner = ballsSpawner;
         }
 
         private void Start()
         {
-     
-            
-            levelScore = 0;
+            ResetLevelScore();
         }
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEndedPart += AddScore;
+            gameEventsInvoker.OnEnded += AddScore;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEndedPart -= AddScore;
+            gameEventsInvoker.OnEnded -= AddScore;
         }
 
         private void AddScore()
         {
-            levelScore += ballsSpawner.SpawnedCount;
+            LevelScore += glassCupCatcher.CaughtBalls;
+
+            if (BestLevelScore < LevelScore)
+                BestLevelScore = LevelScore;
             
-            
-            
-            score += levelScore;
-            levelScore = 0;
+            score += LevelScore;
+        }
+
+        private void ResetLevelScore()
+        {
+            LevelScore = 0;
         }
     }
 }
