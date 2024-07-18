@@ -1,6 +1,7 @@
 using System;
 using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
 using Internal.Codebase.Runtime.CupMiniGame.UI.Stars;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +18,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents
         private GlassCupCatcher glassCupCatcher;
         private Stars stars;
 
+        public static GameEventsInvoker Instance;
         [Inject]
         private void Constructor(CupCatcher.CupCatcher cupCatcher, GlassCupCatcher glassCupCatcher, Stars stars)
         {
@@ -37,6 +39,16 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents
             cupCatcher.OnBallsEnded -= () => OnEndedPart?.Invoke();
             glassCupCatcher.OnBallsEnded -= () => OnEnded?.Invoke();
             stars.OnFilled -= () => OnGotThreeStars?.Invoke();
+        }
+
+        private void Start()
+        {
+            if (Instance == null)
+                Instance = this;
+            else if(Instance == this)
+                Destroy(gameObject);
+            
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using Internal.Codebase.Runtime.MetaGame.ScoreCollector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
         private float animationDuration = 0.4f;
         private Ease ease;
         private Vector3 endScale;
-        
+        private GameEventsInvoker gameEventsInvoker;
+
         public void Constructor(int minValue, int maxValue, float animationDuration, Ease ease, Vector3 endScale)
         {
             this.maxValue = maxValue;
@@ -33,14 +35,22 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
             this.endScale = endScale;
         }
 
+        [Inject]
+        private void Constructor(GameEventsInvoker gameEventsInvoker)
+        {
+            this.gameEventsInvoker = gameEventsInvoker;
+        }
+
         private void OnEnable()
         {
             GlassCupCatcher.Instance.OnAroundCaughtBalls += OnAroundCaughtBalls;
+            GameEventsInvoker.Instance.OnEnded += Hide;
         }
 
         private void OnDisable()
         {
             GlassCupCatcher.Instance.OnAroundCaughtBalls -= OnAroundCaughtBalls;
+            GameEventsInvoker.Instance.OnEnded -= Hide;
         }
 
         public void Show()

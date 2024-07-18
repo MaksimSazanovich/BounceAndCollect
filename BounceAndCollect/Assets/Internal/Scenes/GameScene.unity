@@ -3083,6 +3083,8 @@ GameObject:
   - component: {fileID: 349397641}
   - component: {fileID: 349397643}
   - component: {fileID: 349397642}
+  - component: {fileID: 349397645}
+  - component: {fileID: 349397644}
   m_Layer: 0
   m_Name: Stars
   m_TagString: Untagged
@@ -3151,6 +3153,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349397640}
   m_CullTransparentMesh: 1
+--- !u!114 &349397644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349397640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69085afac8f432b806e2917e4b33a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &349397645
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349397640}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &354425814
 GameObject:
   m_ObjectHideFlags: 0
