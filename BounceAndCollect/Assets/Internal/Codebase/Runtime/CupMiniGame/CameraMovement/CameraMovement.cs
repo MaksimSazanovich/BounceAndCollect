@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
+using Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel.Restart;
 using UnityEngine;
 using Zenject;
 
@@ -28,17 +29,19 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CameraMovement
         {
             gameEventsInvoker.OnEndedPart += MoveToSecondPart;
             glassCupCatcher.OnOffsetReplaced += MoveToFloor;
+            gameEventsInvoker.OnRestart += Reset;
         }
 
         private void OnDisable()
         {
             gameEventsInvoker.OnEndedPart -= MoveToSecondPart;
             glassCupCatcher.OnOffsetReplaced -= MoveToFloor;
+            gameEventsInvoker.OnRestart -= Reset;
         }
 
         private void Start()
         {
-            transform.position = new(0, 0, transform.position.z);
+            Reset();
         }
 
         private void MoveToSecondPart()
@@ -49,6 +52,11 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CameraMovement
         private void MoveToFloor()
         {
             transform.position = new(transform.position.x, transform.position.y - offset, -10);
+        }
+
+        private void Reset()
+        {
+            transform.position = new(0, 0, transform.position.z);
         }
     }
 }

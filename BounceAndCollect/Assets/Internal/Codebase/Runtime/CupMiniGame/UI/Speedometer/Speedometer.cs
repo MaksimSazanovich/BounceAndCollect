@@ -18,7 +18,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
         [SerializeField] private Transform speedometer;
         [SerializeField] private Transform arrow;
         [SerializeField] private Text percentText;
-        private int percent = 30;
+        private int percent = 50;
 
         private float animationDuration = 0.4f;
         private Ease ease;

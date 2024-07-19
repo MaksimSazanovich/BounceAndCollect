@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Speedometer>k__BackingField: {fileID: -7766732003946814255, guid: 8291d93d6e750754abec559e39c1ec35, type: 3}
   <MinValue>k__BackingField: 250
-  <Step>k__BackingField: 42
-  <MaxValue>k__BackingField: 3190
+  <Step>k__BackingField: 66
+  <MaxValue>k__BackingField: 3550
   <AnimationDuration>k__BackingField: 0.5
   <Ease>k__BackingField: 2
   <EndScale>k__BackingField: {x: 1, y: 1, z: 1}

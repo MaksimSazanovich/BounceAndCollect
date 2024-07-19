@@ -19,11 +19,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.ConfettiCannons
         private void OnEnable()
         {
             gameEventsInvoker.OnEnded += Shoot;
+            gameEventsInvoker.OnRestart += Stop;
         }
 
         private void OnDisable()
         {
             gameEventsInvoker.OnEnded -= Shoot;
+            gameEventsInvoker.OnRestart -= Stop;
         }
 
         private void Shoot()
@@ -31,6 +33,14 @@ namespace Internal.Codebase.Runtime.CupMiniGame.ConfettiCannons
             foreach (var cannon in cannons)
             {
                 cannon.Play();
+            }
+        }
+
+        private void Stop()
+        {
+            foreach (var cannon in cannons)
+            {
+                cannon.Stop();
             }
         }
     }

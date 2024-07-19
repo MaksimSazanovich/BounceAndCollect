@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.Cup
 {
@@ -12,7 +14,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private CupMovementController movementController;
         private bool canDrop = true;
         private float timeBeforeDrop = 0.3f;
+        private GameEventsInvoker gameEventsInvoker;
 
+        [Inject]
+        private void Constructor(GameEventsInvoker gameEventsInvoker)
+        {
+            this.gameEventsInvoker = gameEventsInvoker;
+        }
         private void Awake()
         {
             movementController = GetComponent<CupMovementController>();
@@ -21,13 +29,15 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private void OnEnable()
         {
             movementController.OnMouseDown += Push;
-            movementController.OnReplaced += Reset;
+            movementController.OnReplaced += Restart;
+            gameEventsInvoker.OnRestart += Restart;
         }
 
         private void OnDisable()
         {
             movementController.OnMouseDown -= Push;
-            movementController.OnReplaced -= Reset;
+            movementController.OnReplaced -= Restart;
+            gameEventsInvoker.OnRestart -= Restart;
         }
 
         private void Push()
@@ -43,7 +53,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
             OnDropped?.Invoke();
         }
 
-        private void Reset()
+        private void Restart()
         {
             canDrop = true;
         }

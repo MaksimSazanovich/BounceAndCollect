@@ -16,6 +16,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
         private Vector3 secondHalfPosition = new(0, -10);
         private CupMovementController cupMovementController;
 
+        private LevelTemplate.LevelTemplate firstPart = null;
+        private LevelTemplate.LevelTemplate secondPart = null;
+
         public Action<LevelParts> OnChangePart; 
 
         [field: SerializeField] public LevelParts CurrentPart { get; private set; }
@@ -32,28 +35,60 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
         private void Start()
         {
             CurrentPart = LevelParts.First;
+            Restart();
         }
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEndedPart += () =>
-                levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
-
             cupMovementController.OnReplaced += SetSecondPart;
+
+            gameEventsInvoker.OnEndedPart += CreateSecondPart;
+            gameEventsInvoker.OnRestart += SetFirstPart;
+            gameEventsInvoker.OnRestart += Restart;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEndedPart -= () =>
-                levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
-
             cupMovementController.OnReplaced -= SetSecondPart;
+
+            gameEventsInvoker.OnEndedPart -= CreateSecondPart;
+            gameEventsInvoker.OnRestart -= SetFirstPart;
+            gameEventsInvoker.OnRestart -= Restart;
+        }
+
+        private void SetFirstPart()
+        {
+            CurrentPart = LevelParts.First;
+            OnChangePart?.Invoke(CurrentPart);
         }
 
         private void SetSecondPart()
         {
             CurrentPart = LevelParts.Second;
             OnChangePart?.Invoke(CurrentPart);
+        }
+
+        private void CreateFirstPart()
+        {
+            firstPart = levelTemplateFactory.CreateLevel(LevelTemplateTypes.First, Vector3.zero,transform);
+        }
+
+        private void CreateSecondPart()
+        {
+            secondPart = levelTemplateFactory.CreateLevel(LevelTemplateTypes.Second, secondHalfPosition, transform);
+        }
+
+        private void DestroyLevel()
+        {
+            Destroy(firstPart.gameObject);
+            Destroy(secondPart.gameObject);
+        }
+
+        private void Restart()
+        {
+            if(firstPart != null || secondPart != null)
+                DestroyLevel();
+            CreateFirstPart();
         }
     }
 }

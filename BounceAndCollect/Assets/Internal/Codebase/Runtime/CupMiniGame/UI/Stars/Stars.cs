@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using Internal.Codebase.Runtime.UI.Animations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,32 +21,31 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
         private float glowTime = 0.1f;
         [field: SerializeField] public int StarsCount { get; private set; }
 
-        public Action OnFilled; 
+        public Action OnFilled;
+        private GameEventsInvoker gameEventsInvoker;
 
         [Inject]
-        private void Constructor(GlassCupCatcher glassCupCatcher)
+        private void Constructor(GlassCupCatcher glassCupCatcher, GameEventsInvoker gameEventsInvoker)
         {
+            this.gameEventsInvoker = gameEventsInvoker;
             this.glassCupCatcher = glassCupCatcher;
         }
 
         private void OnEnable()
         {
             glassCupCatcher.OnAddedCaughtBall += Fill;
+            gameEventsInvoker.OnRestart += Restart;
         }
 
         private void OnDisable()
         {
             glassCupCatcher.OnAddedCaughtBall -= Fill;
+            gameEventsInvoker.OnRestart -= Restart;
         }
 
         private void Start()
         {
-            glow.SetActive(false);
-
-            foreach (var star in stars)
-            {
-                star.fillAmount = 0;
-            }
+            Restart();
         }
 
         private void Fill()
@@ -91,6 +91,15 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
         {
             particle.transform.localPosition = starPosition;
             particle.Play();
+        }
+
+        private void Restart()
+        {
+            glow.SetActive(false);
+            foreach (var star in stars)
+            {
+                star.fillAmount = 0;
+            }
         }
     }
 }

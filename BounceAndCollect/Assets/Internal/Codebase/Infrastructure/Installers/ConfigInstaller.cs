@@ -1,5 +1,6 @@
 using Internal.Codebase.Infrastructure.UI.LoadingCurtain;
 using Internal.Codebase.Runtime.CupMiniGame.BoosterLines.Multipliers;
+using Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer;
 using Internal.Codebase.Runtime.MetaGame.GameData;
 using Internal.Codebase.Runtime.MetaGame.Shop;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Internal.Codebase.Infrastructure.Installers
         [SerializeField] private BallsSkinsConfig digitalCircusSkinsConfig;
         
         [SerializeField] private GameData gameData;
+        [SerializeField] private SpeedometerConfig speedometerConfig;
 
         public override void InstallBindings()
         {
@@ -28,6 +30,8 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<BallsSkinsConfig>().FromInstance(digitalCircusSkinsConfig);
 
             Container.Bind<GameData>().FromInstance(gameData).AsSingle();
+
+            Container.Bind<SpeedometerConfig>().FromInstance(speedometerConfig).AsSingle();
         }
     }
 }

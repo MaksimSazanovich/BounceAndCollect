@@ -107,3 +107,4 @@ MonoBehaviour:
   defaultSkinsConfig: {fileID: 11400000, guid: ae82cde3513232d4ab07a85c35362b7a, type: 2}
   digitalCircusSkinsConfig: {fileID: 11400000, guid: 83842d697e6131d43be5de5c27581baf, type: 2}
   gameData: {fileID: 11400000, guid: 73e1673bcc98df7498120d6a3a7f1923, type: 2}
+  speedometerConfig: {fileID: 11400000, guid: c915e6906d50c6346b6421f0683872d6, type: 2}

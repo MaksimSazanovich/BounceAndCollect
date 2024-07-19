@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController;
 using UnityEngine;
 using Zenject;
@@ -27,22 +28,39 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private int replaceOffset = 10;
         [SerializeField] private float replaceDuration;
         [SerializeField] private Ease replaceEase;
-        public Action OnReplaced;
-        public Action OnStartedReplace;
+        public event Action OnReplaced;
+        public event Action OnStartedReplace;
+
         private LevelsController levelsController;
 
+        private Vector3 startPosition;
+        private GameEventsInvoker gameEventsInvoker;
+
         [Inject]
-        private void Constructor(CupCatcher.CupCatcher cupCatcher, LevelsController levelsController)
+        private void Constructor(CupCatcher.CupCatcher cupCatcher, LevelsController levelsController,
+            GameEventsInvoker gameEventsInvoker)
         {
+            this.gameEventsInvoker = gameEventsInvoker;
             this.levelsController = levelsController;
             this.cupCatcher = cupCatcher;
         }
 
+        private void OnEnable()
+        {
+            gameEventsInvoker.OnRestart += Restart;
+        }
+
+        private void OnDisable()
+        {
+            gameEventsInvoker.OnRestart -= Restart;
+        }
+
         private void Start()
         {
-            canMove = true;
             camera = Camera.main;
             cupCatcherPosition = cupCatcher.transform.position;
+            startPosition = transform.position;
+            Restart();
         }
 
         private void Update()
@@ -72,9 +90,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
             if (levelsController.CurrentPart == LevelParts.First)
             {
                 float endValue = transform.position.y - replaceOffset;
-            
+
                 OnStartedReplace?.Invoke();
-            
+
                 canMove = false;
                 transform.eulerAngles = Vector3.zero;
                 transform.position = cupCatcherPosition;
@@ -82,6 +100,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
                 transform.DOMoveY(endValue, replaceDuration).SetEase(replaceEase).OnComplete(() => canMove = true);
                 OnReplaced?.Invoke();
             }
+        }
+
+        private void Restart()
+        {
+            transform.eulerAngles = Vector3.zero;
+            transform.position = startPosition;
+            canMove = true;
         }
     }
 }

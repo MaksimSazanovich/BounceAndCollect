@@ -5,6 +5,7 @@ using Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController;
 using Internal.Codebase.Runtime.CupMiniGame.UI.Stars;
+using Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel.Restart;
 using Internal.Codebase.Runtime.MetaGame.ScoreCollector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -26,6 +27,7 @@ namespace Internal.Codebase.Infrastructure.Installers
         [SerializeField] private LevelsController levelsController;
         [SerializeField] private Stars stars;
         [SerializeField] private ScoreCollector scoreCollector;
+        [SerializeField] private RestartButton restartButton;
 
         public override void InstallBindings()
         {
@@ -42,6 +44,8 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<GlassCupCatcher>().FromInstance(glassCupCatcher).AsSingle();
 
             Container.Bind<Stars>().FromInstance(stars).AsSingle();
+
+            Container.Bind<RestartButton>().FromInstance(restartButton).AsSingle();
         }
     }
 }

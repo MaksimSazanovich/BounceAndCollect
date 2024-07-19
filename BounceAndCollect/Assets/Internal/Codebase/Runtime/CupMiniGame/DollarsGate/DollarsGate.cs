@@ -1,10 +1,10 @@
-using System;
 using AssetKits.ParticleImage;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using Internal.Codebase.Runtime.UI.Animations;
-using NaughtyAttributes;
 using NTC.Pool;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Codebase.Runtime.CupMiniGame.DollarsGate
 {
@@ -13,6 +13,41 @@ namespace Internal.Codebase.Runtime.CupMiniGame.DollarsGate
     {
         [SerializeField] private ParticleImage particle;
         [SerializeField] private UIShakeAnimation text;
+        [SerializeField] private BoxCollider2D boxCollider;
+        private GameEventsInvoker gameEventsInvoker;
+
+        [Inject]
+        private void Constructor(GameEventsInvoker gameEventsInvoker)
+        {
+            this.gameEventsInvoker = gameEventsInvoker;
+        }
+        private void OnEnable()
+        {
+            gameEventsInvoker.OnEnded += DeactivateCollider;
+            gameEventsInvoker.OnRestart += Restart;
+        }
+
+        private void OnDisable()
+        {
+            gameEventsInvoker.OnEnded -= DeactivateCollider;
+            gameEventsInvoker.OnRestart -= Restart;
+        }
+
+        private void Start()
+        {
+            Restart();
+        }
+
+        private void Restart()
+        {
+            boxCollider.enabled = true;
+        }
+
+        private void DeactivateCollider()
+        {
+            boxCollider.enabled = false;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out BallCollision ballCollision))

@@ -4,6 +4,7 @@ using DG.Tweening;
 using Internal.Codebase.Runtime.CupMiniGame.Ball;
 using Internal.Codebase.Runtime.CupMiniGame.BallSpawner;
 using Internal.Codebase.Runtime.CupMiniGame.Cup;
+using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
 using NTC.Pool;
 using UnityEngine;
 using Zenject;
@@ -21,6 +22,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
         
         private CupMovementController cupMovementController;
 
+        private int hiddenPositionX = -6;
+        private GameEventsInvoker gameEventsInvoker;
 
         [Inject]
         protected override void Constructor(BallsSpawner ballsSpawner)
@@ -29,19 +32,22 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
         }
 
         [Inject]
-        void Constructor(CupMovementController cupMovementController)
+        void Constructor(CupMovementController cupMovementController, GameEventsInvoker gameEventsInvoker)
         {
+            this.gameEventsInvoker = gameEventsInvoker;
             this.cupMovementController = cupMovementController;
         }
 
         private void OnEnable()
         {
             cupMovementController.OnStartedReplace += Deactivate;
+            gameEventsInvoker.OnRestart += Restart;
         }
 
         private void OnDisable()
         {
             cupMovementController.OnStartedReplace -= Deactivate;
+            gameEventsInvoker.OnRestart -= Restart;
         }
 
         private void Start()
@@ -78,23 +84,31 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
         private void Deactivate()
         {
             Reset();
-            gameObject.SetActive(false);
+            transform.position = new(hiddenPositionX, transform.position.y);
         }
 
         private void Reset()
         {
+            transform.position = new(0, transform.position.y);
+            
             startPositionY = transform.position.y;
             shakePositionY = transform.position.y - shakeOffset;
             
             ResetCaughtBalls();
         }
 
+        private void Restart()
+        {
+            isStart = true;
+            isEnd = false;
+            ResetCaughtBalls();
+            Reset();
+        }
 
         protected override void ResetCaughtBalls()
         {
             base.ResetCaughtBalls();
             caughtBallsText.text = CaughtBalls.ToString();
-
         }
     }
 }

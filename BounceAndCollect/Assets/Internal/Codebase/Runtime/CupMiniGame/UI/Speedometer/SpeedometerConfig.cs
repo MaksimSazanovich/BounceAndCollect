@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
 
         private void OnValidate()
         {
-            MaxValue = Step * 70 + MinValue;
+            MaxValue = Step * 50 + MinValue;
         }
     }
 }
