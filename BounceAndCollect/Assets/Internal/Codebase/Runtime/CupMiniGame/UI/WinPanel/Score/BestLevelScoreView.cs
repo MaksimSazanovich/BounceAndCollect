@@ -32,7 +32,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel.Score
 
         private void ChangeText()
         {
-            text.text = scoreCollector.LevelScore.ToString();
+            text.text = scoreCollector.BestLevelScore.ToString();
         }
     }
 }

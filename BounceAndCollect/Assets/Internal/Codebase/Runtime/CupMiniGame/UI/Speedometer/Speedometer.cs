@@ -24,7 +24,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
         private Ease ease;
         private Vector3 endScale;
         private GameEventsInvoker gameEventsInvoker;
-        private Vector3 rotationAngle = new(0, 0, -2.0857f);
+        private Vector3 rotationAngle = new(0, 0, -2.46f);
 
         public void Constructor(int minValue, int maxValue, float animationDuration, Ease ease, Vector3 endScale)
         {

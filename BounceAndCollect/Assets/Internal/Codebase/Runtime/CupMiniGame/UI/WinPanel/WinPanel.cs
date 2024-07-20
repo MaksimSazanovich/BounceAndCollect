@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents;
@@ -10,9 +11,10 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel
     public sealed class WinPanel : MonoBehaviour
     {
         private GameEventsInvoker gameEventsInvoker;
-        [SerializeField] private GameObject winPanel;
+        [SerializeField] private CanvasGroup winPanel;
         [SerializeField] private CanvasGroup restartButton;
 
+        public event Action OnShowed;
         [Inject]
         private void Constructor(GameEventsInvoker gameEventsInvoker)
         {
@@ -39,7 +41,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel
         private IEnumerator Activate()
         {
             yield return new WaitForSeconds(1);
-            winPanel.SetActive(true);
+            winPanel.alpha = 1;
+            OnShowed?.Invoke();
             yield return new WaitForSeconds(2);
             restartButton.DOFade(1,0.5f);
         }
@@ -47,7 +50,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel
         private void Restart()
         {
             restartButton.alpha = 0;
-            winPanel.SetActive(false);
+            winPanel.alpha = 0;
         }
     }
 }

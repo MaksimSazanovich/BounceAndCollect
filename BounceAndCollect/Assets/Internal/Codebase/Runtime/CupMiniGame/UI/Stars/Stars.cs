@@ -96,6 +96,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
         private void Restart()
         {
             glow.SetActive(false);
+            StarsCount = 0;
             foreach (var star in stars)
             {
                 star.fillAmount = 0;

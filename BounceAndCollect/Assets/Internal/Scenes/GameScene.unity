@@ -5203,7 +5203,6 @@ GameObject:
   - component: {fileID: 620222150}
   - component: {fileID: 620222149}
   - component: {fileID: 620222148}
-  - component: {fileID: 620222151}
   m_Layer: 0
   m_Name: WinCanvas
   m_TagString: Untagged
@@ -5296,20 +5295,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &620222151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620222146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7752f63c8240de8cef3ad0f8c820ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winPanel: {fileID: 949663737}
-  restartButton: {fileID: 1051858727}
 --- !u!1 &628549142
 GameObject:
   m_ObjectHideFlags: 0
@@ -13571,13 +13556,15 @@ GameObject:
   - component: {fileID: 949663738}
   - component: {fileID: 949663740}
   - component: {fileID: 949663739}
+  - component: {fileID: 949663742}
+  - component: {fileID: 949663741}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &949663738
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13637,6 +13624,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949663737}
   m_CullTransparentMesh: 1
+--- !u!114 &949663741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949663737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7752f63c8240de8cef3ad0f8c820ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winPanel: {fileID: 949663742}
+  restartButton: {fileID: 1051858727}
+--- !u!225 &949663742
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949663737}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &974990856
 GameObject:
   m_ObjectHideFlags: 0
@@ -16382,6 +16395,7 @@ MonoBehaviour:
   - {fileID: 1348846673}
   - {fileID: 7055144}
   - {fileID: 1024031493}
+  winPanel: {fileID: 949663741}
 --- !u!1 &1320858327
 GameObject:
   m_ObjectHideFlags: 0
