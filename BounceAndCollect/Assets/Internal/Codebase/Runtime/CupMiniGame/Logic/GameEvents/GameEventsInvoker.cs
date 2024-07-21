@@ -13,7 +13,9 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents
         public event Action OnStarted;
         public event Action OnEndedPart;
         public event Action OnGotThreeStars;
-        public event Action OnEnded;
+        public event Action OnWon;
+
+        public event Action OnLost;
         public event Action OnRestart;
 
         private CupCatcher.CupCatcher cupCatcher;
@@ -21,13 +23,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents
         private Stars stars;
 
         public static GameEventsInvoker Instance;
-        private RestartButton restartButton;
+        private RestartButton[] restartButtons;
 
         [Inject]
         private void Constructor(CupCatcher.CupCatcher cupCatcher, GlassCupCatcher glassCupCatcher, Stars stars,
-            RestartButton restartButton)
+            RestartButton[] restartButton)
         {
-            this.restartButton = restartButton;
+            this.restartButtons = restartButton;
             this.glassCupCatcher = glassCupCatcher;
             this.cupCatcher = cupCatcher;
             this.stars = stars;
@@ -36,17 +38,24 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents
         private void OnEnable()
         {
             cupCatcher.OnBallsEnded += () => OnEndedPart?.Invoke();
-            glassCupCatcher.OnBallsEnded += () => OnEnded?.Invoke();
+            glassCupCatcher.OnBallsEnded += InvokeWinOrLose;
             stars.OnFilled += () => OnGotThreeStars?.Invoke();
-            restartButton.OnClicked += () => OnRestart?.Invoke();
+            foreach (var restartButton in restartButtons)
+            {
+                restartButton.OnClicked += () => OnRestart?.Invoke();
+            }
+            
         }
 
         private void OnDisable()
         {
             cupCatcher.OnBallsEnded -= () => OnEndedPart?.Invoke();
-            glassCupCatcher.OnBallsEnded -= () => OnEnded?.Invoke();
+            glassCupCatcher.OnBallsEnded -= InvokeWinOrLose;
             stars.OnFilled -= () => OnGotThreeStars?.Invoke();
-            restartButton.OnClicked -= () => OnRestart?.Invoke();
+            foreach (var restartButton in restartButtons)
+            {
+                restartButton.OnClicked -= () => OnRestart?.Invoke();
+            }
         }
 
         private void Start()
@@ -57,6 +66,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.GameEvents
                 Destroy(gameObject);
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void InvokeWinOrLose()
+        {
+            if(glassCupCatcher.CaughtBalls >= 50)
+                OnWon?.Invoke();
+            else OnLost?.Invoke();
         }
     }
 }

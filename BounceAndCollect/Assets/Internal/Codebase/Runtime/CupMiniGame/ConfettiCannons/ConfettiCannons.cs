@@ -18,13 +18,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.ConfettiCannons
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += Shoot;
+            gameEventsInvoker.OnWon += Shoot;
             gameEventsInvoker.OnRestart += Stop;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= Shoot;
+            gameEventsInvoker.OnWon -= Shoot;
             gameEventsInvoker.OnRestart -= Stop;
         }
 

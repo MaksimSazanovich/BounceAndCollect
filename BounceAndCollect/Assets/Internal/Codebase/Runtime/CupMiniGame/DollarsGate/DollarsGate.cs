@@ -23,13 +23,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.DollarsGate
         }
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += DeactivateCollider;
+            gameEventsInvoker.OnWon += DeactivateCollider;
             gameEventsInvoker.OnRestart += Restart;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= DeactivateCollider;
+            gameEventsInvoker.OnWon -= DeactivateCollider;
             gameEventsInvoker.OnRestart -= Restart;
         }
 

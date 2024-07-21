@@ -9,30 +9,34 @@ using Zenject;
 namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
 {
     [DisallowMultipleComponent]
-    public abstract class Cathcer : MonoBehaviour
+    public abstract class Catcher : MonoBehaviour
     {
         public int CaughtBalls { get; protected set; }
         [SerializeField] protected ParticleSystem particle;
         [SerializeField] protected Text caughtBallsText;
-        
+
         protected bool isStart = true;
         protected bool isEnd;
-        
-        private BallsSpawner ballsSpawner;
-        
-        public Action OnBallsEnded;
+
+        protected BallsSpawner ballsSpawner;
+
+        public event Action OnBallsEnded;
         [SerializeField] protected Vector2 point;
         [SerializeField] protected Vector2 size;
         [SerializeField] protected LayerMask layer;
         protected int timeBeforeEnd;
-        private Collider2D[] ballsInFinishArea;
+        protected Collider2D[] ballsInFinishArea;
+        protected Cup.Cup cup;
+
+        protected Coroutine timer;
 
         [Inject]
-        protected virtual void Constructor(BallsSpawner ballsSpawner)
+        protected virtual void Constructor(BallsSpawner ballsSpawner, Cup.Cup cup)
         {
             this.ballsSpawner = ballsSpawner;
+            this.cup = cup;
         }
-        
+
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out BallCollision ballCollision))
@@ -40,7 +44,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
                 AddCaughtBall();
             }
         }
-        
+
         protected virtual void Update()
         {
             if (isStart == false && isEnd == false)
@@ -48,18 +52,39 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
                 ballsInFinishArea = Physics2D.OverlapBoxAll(point, size, 0, layer);
                 if (ballsInFinishArea.Length == 0)
                 {
-                    StartCoroutine(Timer());
+                    //if (timer == null)
+                        timer = StartCoroutine(Timer());
                 }
             }
+
+           
+            /*
+            if (CaughtBalls == 0 && cup.Balls == 0)
+            {
+                if (timer == null)
+                    timer = StartCoroutine(Timer());
+            }
+            else timer = null;*/
         }
 
-        protected virtual IEnumerator Timer()
+        protected IEnumerator Timer()
         {
             yield return new WaitForSeconds(timeBeforeEnd);
             if (ballsInFinishArea.Length == 0 && isEnd == false)
             {
                 isEnd = true;
-                //caughtBallsText.text = ballsSpawner.SpawnedCount.ToString();
+                OnBallsEnded?.Invoke();
+                Debug.Log(nameof(OnBallsEnded));
+            }
+        }
+        
+        protected IEnumerator CupEmptyTimer()
+        {
+            yield return new WaitForSeconds(timeBeforeEnd);
+            if (CaughtBalls == 0 && cup.Balls == 0 && isEnd == false)
+            {
+                Debug.LogError("CUP_EMPTY");
+                isEnd = true;
                 OnBallsEnded?.Invoke();
                 Debug.Log(nameof(OnBallsEnded));
             }
@@ -74,7 +99,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
         {
             CaughtBalls = 0;
         }
-        
+
         protected virtual void OnDrawGizmosSelected()
         {
             Gizmos.DrawCube(point, size);

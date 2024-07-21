@@ -36,7 +36,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
         private CupDropController cupDropController;
         private SkinsResourceProvider skinsResourceProvider;
 
-        public Action<int> OnCreatedBall;
+        public event Action<int> OnCreatedBall;
         private CupCatcher.CupCatcher cupCatcher;
         private GameEventsInvoker gameEventsInvoker;
 

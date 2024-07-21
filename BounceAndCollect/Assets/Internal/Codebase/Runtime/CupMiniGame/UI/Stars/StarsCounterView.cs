@@ -23,12 +23,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Stars
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += Show;
+            gameEventsInvoker.OnWon += Show;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= Show;
+            gameEventsInvoker.OnWon -= Show;
         }
 
         private void Show()

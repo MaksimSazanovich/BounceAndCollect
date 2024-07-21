@@ -27,7 +27,8 @@ namespace Internal.Codebase.Infrastructure.Installers
         [SerializeField] private LevelsController levelsController;
         [SerializeField] private Stars stars;
         [SerializeField] private ScoreCollector scoreCollector;
-        [SerializeField] private RestartButton restartButton;
+        [SerializeField] private RestartButton restartButton1;
+        [SerializeField] private RestartButton restartButton2;
 
         public override void InstallBindings()
         {
@@ -45,7 +46,8 @@ namespace Internal.Codebase.Infrastructure.Installers
 
             Container.Bind<Stars>().FromInstance(stars).AsSingle();
 
-            Container.Bind<RestartButton>().FromInstance(restartButton).AsSingle();
+            Container.Bind<RestartButton>().FromInstance(restartButton1).AsCached();
+            Container.Bind<RestartButton>().FromInstance(restartButton2).AsCached();
         }
     }
 }

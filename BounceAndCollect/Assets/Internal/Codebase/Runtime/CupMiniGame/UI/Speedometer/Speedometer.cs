@@ -45,13 +45,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
         private void OnEnable()
         {
             GlassCupCatcher.Instance.OnAroundCaughtBalls += OnAroundCaughtBalls;
-            GameEventsInvoker.Instance.OnEnded += Hide;
+            GameEventsInvoker.Instance.OnWon += Hide;
         }
 
         private void OnDisable()
         {
             GlassCupCatcher.Instance.OnAroundCaughtBalls -= OnAroundCaughtBalls;
-            GameEventsInvoker.Instance.OnEnded -= Hide;
+            GameEventsInvoker.Instance.OnWon -= Hide;
         }
 
         public void Show()

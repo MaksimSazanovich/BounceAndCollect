@@ -28,13 +28,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += () => StartCoroutine(Activate());
+            gameEventsInvoker.OnWon += () => StartCoroutine(Activate());
             gameEventsInvoker.OnRestart += Restart;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= () => StartCoroutine(Activate());
+            gameEventsInvoker.OnWon -= () => StartCoroutine(Activate());
             gameEventsInvoker.OnRestart -= Restart;
         }
 

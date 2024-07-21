@@ -28,13 +28,13 @@ namespace Internal.Codebase.Runtime.MetaGame.ScoreCollector
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += AddScore;
+            gameEventsInvoker.OnWon += AddScore;
             gameEventsInvoker.OnRestart += ResetLevelScore;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= AddScore;
+            gameEventsInvoker.OnWon -= AddScore;
             gameEventsInvoker.OnRestart -= ResetLevelScore;
         }
 

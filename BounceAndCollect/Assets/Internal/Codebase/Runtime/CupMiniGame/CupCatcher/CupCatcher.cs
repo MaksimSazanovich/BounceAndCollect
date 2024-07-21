@@ -12,7 +12,7 @@ using Zenject;
 namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
 {
     [DisallowMultipleComponent]
-    public sealed class CupCatcher : Cathcer
+    public sealed class CupCatcher : Catcher
     {
         private float shakeOffset = 0.1f;
         private float shakePositionY;
@@ -24,12 +24,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
 
         private int hiddenPositionX = -6;
         private GameEventsInvoker gameEventsInvoker;
-
-        [Inject]
-        protected override void Constructor(BallsSpawner ballsSpawner)
-        {
-            base.Constructor(ballsSpawner);
-        }
 
         [Inject]
         void Constructor(CupMovementController cupMovementController, GameEventsInvoker gameEventsInvoker)

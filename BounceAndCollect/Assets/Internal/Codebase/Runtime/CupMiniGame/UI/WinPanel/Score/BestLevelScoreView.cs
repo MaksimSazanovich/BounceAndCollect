@@ -22,12 +22,12 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.WinPanel.Score
 
         private void OnEnable()
         {
-            gameEventsInvoker.OnEnded += ChangeText;
+            gameEventsInvoker.OnWon += ChangeText;
         }
 
         private void OnDisable()
         {
-            gameEventsInvoker.OnEnded -= ChangeText;
+            gameEventsInvoker.OnWon -= ChangeText;
         }
 
         private void ChangeText()
