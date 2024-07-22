@@ -70,7 +70,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
         protected IEnumerator Timer()
         {
             yield return new WaitForSeconds(timeBeforeEnd);
-            if (ballsInFinishArea.Length == 0 && isEnd == false)
+            if (ballsInFinishArea.Length == 0 && isEnd == false && isStart == false)
             {
                 isEnd = true;
                 OnBallsEnded?.Invoke();

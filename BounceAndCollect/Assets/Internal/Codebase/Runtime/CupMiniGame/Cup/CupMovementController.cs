@@ -35,6 +35,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
 
         private Vector3 startPosition;
         private GameEventsInvoker gameEventsInvoker;
+        [SerializeField] private float mouseOffest;
 
         [Inject]
         private void Constructor(CupCatcher.CupCatcher cupCatcher, LevelsController levelsController,
@@ -68,12 +69,16 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
             if (Input.GetMouseButton(0) && canMove)
             {
                 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
-                transform.position = new Vector3(mousePosition.x, transform.position.y, 0);
+                transform.position = new Vector3(mousePosition.x - mouseOffest, transform.position.y, 0);
 
                 CheckBoundaries();
 
                 if (transform.eulerAngles.z == 0)
+                {
                     transform.DORotate(new(0, 0, -90), rotateDuration).SetEase(rotationEase);
+                }
+
+                
 
                 OnMouseDown?.Invoke();
             }

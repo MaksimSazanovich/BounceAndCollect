@@ -33,8 +33,8 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
         private GameEventsInvoker gameEventsInvoker;
         private SpeedometerConfig speedometerConfig;
 
-        private float startAreaPointX;
-        private float endAreaPointX = -16.3f;
+        private float startAreaPointY;
+        private float endAreaPointY = -16.2f;
 
         [Inject]
         private void Constructor(LevelsController levelsController, GameEventsInvoker gameEventsInvoker,
@@ -67,7 +67,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
             DontDestroyOnLoad(gameObject);
 
             timeBeforeEnd = 3;
-            startAreaPointX = point.x;
+            startAreaPointY = point.y;
             boxCollider2D = GetComponent<BoxCollider2D>();
             startPosition = transform.position;
             boxCollider2DStartOffset = boxCollider2D.offset;
@@ -100,7 +100,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
                 {
                     OnOverflowed?.Invoke();
                     Explode();
-                    point.x = endAreaPointX;
+                    point.y = endAreaPointY;
                 }
 
                 caughtBallsText.text = $"{CaughtBalls}/50";
@@ -109,11 +109,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
 
         protected override void Update()
         {
-            if (levelsController.CurrentPart == LevelParts.Second)
+            if (levelsController.CurrentPart != LevelParts.First)
             {
                 if (isStart == false && isEnd == false)
                 {
                     ballsInFinishArea = Physics2D.OverlapBoxAll(point, size, 0, layer);
+                    if(levelsController.CurrentPart == LevelParts.Third)
+                        Debug.Log(ballsInFinishArea.Length);
                     if (ballsInFinishArea.Length == 0)
                     {
                         //if (timer == null)
@@ -123,7 +125,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
 
                 if (isEnd == false)
                 {
-                    Debug.Log(CaughtBalls == 0 && cup.Balls == 0 && isEnd == false);
                     if (CaughtBalls == 0 && cup.Balls == 0 && isEnd == false)
                     {
                         timer = StartCoroutine(CupEmptyTimer());
@@ -164,7 +165,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
             boxCollider2D.offset = boxCollider2DStartOffset;
             glassCup.SetActive(true);
             caughtBallsText.text = $"{CaughtBalls}/50";
-            point.x = startAreaPointX;
+            point.y = startAreaPointY;
         }
     }
 }
