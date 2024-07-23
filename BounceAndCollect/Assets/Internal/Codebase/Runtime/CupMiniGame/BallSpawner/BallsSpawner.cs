@@ -129,6 +129,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.BallSpawner
             for (int i = 0; i < MaxBallsCount; i++)
             {
                 NightPool.Despawn(Balls[i]);
+                Balls[i].Reset();
             }
         }
 

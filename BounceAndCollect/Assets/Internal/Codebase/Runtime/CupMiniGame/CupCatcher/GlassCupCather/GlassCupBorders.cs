@@ -9,6 +9,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
     { 
         private GlassCupCatcher glassCupCatcher;
         [SerializeField] private BoxCollider2D[] boxColliders;
+        [SerializeField] private GameObject[] slides;
         private GameEventsInvoker gameEventsInvoker;
 
         [Inject]
@@ -40,6 +41,11 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
             {
                 boxCollider.enabled = true;
             }
+            
+            foreach (var slide in slides)
+            {
+                slide.SetActive(true);
+            }
         }
 
         private void Deactivate()
@@ -47,6 +53,11 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher.GlassCupCather
             foreach (var boxCollider in boxColliders)
             {
                 boxCollider.enabled = false;
+            }
+
+            foreach (var slide in slides)
+            {
+                slide.SetActive(false);
             }
         }
     }

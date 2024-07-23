@@ -18,7 +18,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
         [SerializeField] private Transform speedometer;
         [SerializeField] private Transform arrow;
         [SerializeField] private Text percentText;
-        private int percent = 50;
+        private int percent = 70;
 
         private float animationDuration = 0.4f;
         private Ease ease;
@@ -73,7 +73,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
 
         private void OnAroundCaughtBalls()
         {
-            if (percent == 100)
+            if (percent == 98)
                 return;
             RotateArrow();
             AddPercent();

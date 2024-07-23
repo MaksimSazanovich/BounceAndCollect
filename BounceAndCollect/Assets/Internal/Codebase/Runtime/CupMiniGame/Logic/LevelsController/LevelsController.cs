@@ -108,7 +108,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Logic.LevelsController
             if(firstPart != null || secondPart != null)
                 DestroyLevel();
             CreateFirstPart();
-            
         }
     }
 }

@@ -3451,6 +3451,9 @@ MonoBehaviour:
   boxColliders:
   - {fileID: 375689815}
   - {fileID: 375689814}
+  slides:
+  - {fileID: 1772028115}
+  - {fileID: 672734785}
 --- !u!1 &385003098
 GameObject:
   m_ObjectHideFlags: 0
@@ -6167,6 +6170,7 @@ MonoBehaviour:
   rotationEase: 0
   replaceDuration: 2.4
   replaceEase: 5
+  mouseOffest: 0.75
 --- !u!212 &734076037
 SpriteRenderer:
   m_ObjectHideFlags: 0

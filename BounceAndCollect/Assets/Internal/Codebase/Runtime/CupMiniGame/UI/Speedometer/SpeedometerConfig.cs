@@ -24,7 +24,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.UI.Speedometer
 
         private void OnValidate()
         {
-            MaxValue = Step * 50 + MinValue;
+            MaxValue = Step * 30 + MinValue;
         }
     }
 }

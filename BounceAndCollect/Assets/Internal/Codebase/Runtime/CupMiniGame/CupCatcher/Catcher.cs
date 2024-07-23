@@ -83,7 +83,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.CupCatcher
             yield return new WaitForSeconds(timeBeforeEnd);
             if (CaughtBalls == 0 && cup.Balls == 0 && isEnd == false)
             {
-                Debug.LogError("CUP_EMPTY");
                 isEnd = true;
                 OnBallsEnded?.Invoke();
                 Debug.Log(nameof(OnBallsEnded));

@@ -78,8 +78,6 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
                     transform.DORotate(new(0, 0, -90), rotateDuration).SetEase(rotationEase);
                 }
 
-                
-
                 OnMouseDown?.Invoke();
             }
         }
