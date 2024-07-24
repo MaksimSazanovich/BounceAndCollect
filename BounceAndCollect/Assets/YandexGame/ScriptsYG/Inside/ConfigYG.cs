@@ -7,7 +7,7 @@ namespace YG.Insides
     {
 #if UNITY_EDITOR
         public static string patchYGPrefab = "Assets/YandexGame/Prefabs/YandexGame.prefab";
-        
+
         public static InfoYG GetInfoYG()
         {
             GameObject ygPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(patchYGPrefab, typeof(GameObject));
