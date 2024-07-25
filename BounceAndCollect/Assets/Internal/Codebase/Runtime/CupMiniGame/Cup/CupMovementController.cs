@@ -36,6 +36,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private Vector3 startPosition;
         private GameEventsInvoker gameEventsInvoker;
         [SerializeField] private float mouseOffest;
+        private Vector3 targetPosition;
 
         [Inject]
         private void Constructor(CupCatcher.CupCatcher cupCatcher, LevelsController levelsController,
@@ -50,12 +51,14 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         {
             gameEventsInvoker.OnRestart += Restart;
             gameEventsInvoker.OnLost += Stop;
+            gameEventsInvoker.OnWon += Stop;
         }
 
         private void OnDisable()
         {
             gameEventsInvoker.OnRestart -= Restart;
             gameEventsInvoker.OnLost -= Stop;
+            gameEventsInvoker.OnWon -= Stop;
         }
 
         private void Start()
@@ -71,23 +74,24 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
             if (Input.GetMouseButton(0) && canMove)
             {
                 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
-                transform.position = new Vector3(mousePosition.x - mouseOffest, transform.position.y, 0);
+                //transform.position = new Vector3(mousePosition.x - mouseOffest, transform.position.y, 0);
+                targetPosition = SetBoundaries(new Vector3(mousePosition.x - mouseOffest, transform.position.y, 0));
+                transform.DOMove(targetPosition, 5).SetSpeedBased().SetEase(Ease.OutQuad).OnComplete(() => OnMouseDown?.Invoke());
 
-                CheckBoundaries();
+
+                
 
                 if (transform.eulerAngles.z == 0)
                 {
                     transform.DORotate(new(0, 0, -90), rotateDuration).SetEase(rotationEase);
                 }
-
-                OnMouseDown?.Invoke();
             }
         }
 
-        private void CheckBoundaries()
+        private Vector3 SetBoundaries(Vector3 position)
         {
-            float x = Mathf.Clamp(transform.position.x, leftBoundary, rightBoundary);
-            transform.position = new Vector3(x, transform.position.y, 0);
+            float x = Mathf.Clamp(position.x, leftBoundary, rightBoundary);
+            return new Vector3(x, position.y, 0);
         }
 
         private void OnBecameInvisible()
