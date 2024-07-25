@@ -29,6 +29,10 @@ PrefabInstance:
       value: "\uFE3D"
       objectReference: {fileID: 0}
     - target: {fileID: 2569755663181883994, guid: 413937e9196389e43ae99ff6e03a21af, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 2569755663181883994, guid: 413937e9196389e43ae99ff6e03a21af, type: 3}
       propertyPath: m_FontData.m_BestFit
       value: 1
       objectReference: {fileID: 0}
