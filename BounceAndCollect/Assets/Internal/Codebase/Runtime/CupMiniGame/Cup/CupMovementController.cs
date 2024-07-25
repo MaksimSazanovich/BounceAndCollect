@@ -49,11 +49,13 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
         private void OnEnable()
         {
             gameEventsInvoker.OnRestart += Restart;
+            gameEventsInvoker.OnLost += Stop;
         }
 
         private void OnDisable()
         {
             gameEventsInvoker.OnRestart -= Restart;
+            gameEventsInvoker.OnLost -= Stop;
         }
 
         private void Start()
@@ -111,5 +113,7 @@ namespace Internal.Codebase.Runtime.CupMiniGame.Cup
             transform.position = startPosition;
             canMove = true;
         }
+
+        private void Stop() => canMove = false;
     }
 }
